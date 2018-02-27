@@ -1,0 +1,63 @@
+\chapter{Introduction}\label{chap:intro}
+
+say that we will use "social tagging systems" and "folksonomies" interchangeably.
+
+\section{Motivation}\label{section:intro_motivation}
+
+The motivation for this work was twofold. 
+
+Firstly, I myself take part in many online communities, including some where I need to organize resources in one way or another. I am frequently frustrated with the fact that many websites do not provide any organization capabilities other than placing things in \textit{categories} or \textit{folders}.
+
+I am witness to the fact that these methods don't scale at all for anything other than trivial examples \footnote{Say you need to place a scientific article called \textit{The History of Football in Europe} in a folder. Do you place it under "history", "sports" or under "Europe"?} and I believe tagging is a good way forward.
+
+Secondly, I'm interested in Machine Learning and I realized that predicting tags for resources in a social setting would not only be a worthy problem from a theoretical standpoint, but could also effectively help people in the real world navigate these online communities.
+
+
+
+\section{Problem scope}\label{section:intro_problem}
+
+When considering Social Tagging Systems, one can envision many different problems and areas where scientific knowledge and research could be put to use.
+
+We chose to address the problem of how to correctly predict which tags will be used to describe a given textual object in such a system. 
+
+Since this problem touches upon many areas of scientific knowledge, such as machine learning, natural language processing (for textual resources), computer vision (similarly, for images and visual objects), recommender systems and so on, we would like to further limit our scope in a more precise manner.
+
+Firstly, folksonomies may be (according to commonly-cited sources such as \cite{}) divided among broad and narrow ones. 
+Broad folksonomies are those we not just a resource's owner but the whole community of users may assign tags to any one resource available on the system. Narrow folksonomies, on the other hand, only allow items to be tagged once, by the person who has first added that particular item to the system (i.e. that item's owner).
+
+Broad folksonomies exhibit more diversity and richness of information, not to mention sheer scale, which makes them more amenable to analysis by data-driven methods, such as machine learning. More concretely, it has been suggested that a shared, global vocabulary of tags cannot be observed in narrow folksonomies \cite{schifanella_etal_2010}.
+
+\ednote{also mention that broad systems are annotated by non-expert users, which has an effect on the amount of noisy tags.}
+
+Secondly, some authors (\cite{song_etal_2011} have made a distinction between resource-centered and user-centered approaches. We have chosen to use a resource-centered approach to predicting tags assigned to an item in the system, mainly due to the fact \cite{song_etal_2011} that user-centered approaches do not perform so well vis-a-vis resource-centered methods because the distribution of users and tags in broad folksonomies follow a power law and reusability of tags by each individual user is low. 
+
+This makes resource-centered approaches more robust due to the fact that we generally have much more information about resources than about users. This is particularly true with textual resources. Additionally, resource-centered methods can also be used in the absence of user information, the so called \textit{cold start} problem.
+
+Another point worth mentioning is that most similar works in the literature do not take into account the number of times each tag has been assigned to a given resource. In other words, tags are given equal \textit{weight} (although some may be later pruned). We follow that convention in this article.
+
+More information on these issues is given in \autoref{chap:social_tagging}.
+
+\section{Methodology}\label{section:intro_methodology}
+
+In the next subsections we will give a brief overview of the methodology used in this work.
+
+\subsection{Systematic Literature Review}\label{section:literature_review}
+
+In order to add replicability and transparency to our literature review, we adopted principles from \textbf{Systematic Literature Reviewing}, as defined in works such as \cite{baumeister_leary_1997} and \cite{bem_1995}. \footnote{Evidence such as screenshots of search results and the actual set of articles retrieved from each query can be provided upon request.}
+
+We selected \textbf{three reputable repositories} of scientific articles and research pieces, namely IEEE-XPlore Digital Library \footnote{http://ieeexplore.ieee.org/Xplore/home.jsp}, ScienceDirect \footnote{https://www.sciencedirect.com/} and Scopus \footnote{https://www.scopus.com/}.
+
+After initial contact with the subject matter of our work, we selected \textbf{four sets of search terms}, namely \textit{"collaborative tagging"}, \textit{"social tag prediction"}, \textit{"social tagging"} and \textit{"tag prediction"} and used those to search the titles, abstracts and contents of research pieces in the websites' databases. \footnote{These search terms were chosen because we believe they encompass a large part  of the available literature related to the topic of our work which we defined (for the purpose of this literature review) as \textbf{"Predicting or recommending tags in a social tagging environment"}.} 
+
+We gathered and organized the results of the aforementioned queries; after removing duplicated entries, we had a collection of 2466 articles, book chapters or conference proceedings.
+
+We read the abstracts of all 2466 pieces and, based on that, we selected 399 as being somehow related to the subject of our work, as explained above.
+
+Out of these 399 relevant works, we further refined our set to 285 articles, by extending our analysis to the introduction and conclusion sections. This final list of 285 articles all contained information directly related to the task of predicting and/or recommending tags in a social tagging environment. They were all read in order to inform our research. \footnote{Other articles, which didn't feature in the search results, but were obviously relevant (based upon citation count for example), were also added and read.}
+
+
+\section{Document structure}\label{section:intro_structure}
+
+In \autoref{chap:intro} \ldots
+
+Finally, \autoref{chap: conclusion} we conclude and point to possible ways in which this work may be extended and/or continued.

@@ -1,0 +1,113 @@
+\section{Resource-centered Methods}\label{section:resource_centered_methods}
+
+
+\subsection{Association Rule Mining}
+
+\cite{heymann_etal_2008}
+
+\cite{vanleeuwen_puspitaningrum_2012} Association rules. Uses associations of any length, not just "pairwise" associations.
+
+\subsection{Content-based tag propagation}
+
+\cite{mishne_2006} Simple content-based propagation
+
+\cite{sordo_etal_2007}
+
+\cite{moxley_etal_2008} content- and location-based tag propagation
+
+\cite{guillaumin_etal_2009} Weighted content-based diffusion
+
+\cite{li_etal_2009} Weighted content-based tag propagation
+
+\cite{zhao_etal_2010} Content-based diffusion with more weight to more frequently used tags in the hwole system.
+
+\subsection{Resource-based tag propagation}
+
+\cite{auyeung_etal_2009} Uses links in the document to find neighbours and propagate tags from them.
+
+\subsection{Multi-label Classification/Ranking}
+
+\cite{chen_etal_2008} OvR SVM
+
+\cite{katakis_etal_2008} OvR SVM
+
+\cite{bertin-mahieux_etal_2008} Boosted Trees (2-stage)
+
+\cite{song_etal_2008}
+
+\cite{shen_etal_2009} Multi-instance Multi-label
+
+\cite{illig_etal_2011}
+
+\cite{lo_etal_2011} SVM and adaboost
+
+\cite{song_etal_2011} 
+Prototype-based method. Trains a Gaussian Process (GP) classifier for each tag. Then a representative document (prototype) is found for each class. This is used to infer categories for each resource. Then tags are associated with categories and at inference time, tags are suggested depending upon the category of the query resource.
+
+\cite{belem_etal_2014}
+Object-centered approach. They extract all sorts of heuristics (tag co-occurrence, tags assigned to the object by other users, textual features from title, metadata and comments, tag stability, descriptive power, etc) to build the features for a resource and for tags.
+For actual ranking of tag relevance, they use L2R: RankSVM, Random Forests and Genetic Programming approaches.
+
+\cite{lo_etal_2014}
+Multi-label classification approach. They create a variant of RAkEL where each underlying classifier is treated as an information source, but the weights (coefficients) given to each underlying classifier is not uniform, but learned.
+Tag counts are treated are "costs" to minimize, too.
+
+\cite{yagnik_etal_2014} 
+Multi-label text classification approach, with naive bayes (multinomial) classifier (OvR).Focus is on new resources (no tags yet)
+
+\cite{charte_etal_2015}
+
+Framed as a multi-label text classification. Uses a multi-label KNN.
+
+\cite{kataria_agarwal_2015}
+Words, documents, tags and users are embedded in a shared subspace.
+They start off with the assumption that using tags (in addition to words) to learn document representations can help with regularization, because it adds “topic-level” information to the document representations.
+In content-based recommendation, they learn representations for documents and rank the tags for a resource using KNN, SVM Struct and Sparse Gaussian Processes.
+Two-stage method:
+Stage 1: models one layer using the tags for a document and another layer using the words for that document.
+Stage 2: use the representations learned in stage 1 to learn user representations, using “embedding translation” to find the “user” representation that is closest to “document” + “tag”
+
+\cite{tao_yao_2016}
+
+Framed the problem as a multi-label text classification problem. They extract features using TFIDF and also Doc2Vec. For ranking tags, they use Neural Nets (binary sigmoid outputs) and SVMs.
+
+\cite{barezi_etal_2017}
+Multi-label classification approach. They cluster labels in groups where a label in one group does not has dependencies on tags in other groups, so they can be learned in parallel.
+
+\subsection{Matrix Factorization Methods}
+
+\cite{si_sun_2008} Tag-LDA (LDA on Resource-content-tags)
+
+\cite{bundschus_etal_2009} LDA on the resource-tag matrix.
+
+\cite{panagakis_kotropoulos_2011} PARAFAC2 tensor factorization.
+
+\cite{hu_etal_2012} Train an LDA model on documents -> topic distr, words -> topic distr, tags -> topic distr.
+
+\cite{zhang_etal_2014} Apply a Sparse Version of LSA on the resource-tag matrix using CUDA GPU.
+
+
+\subsection{Graph-based}
+
+\cite{sharma_bedi_2009} Ant-colony approach, with parameterized evaporation.
+
+\cite{wang_etal_2015} Develop a method focused on "hesitant" (i.e. sparsely tagged) webpages. Resources are clustered into rough sets using DenShrink method, to find resource neighbours.
+
+They use graph concepts like Hubs, Bridges and Attached Nodes.
+
+\subsection{Other}
+
+\cite{si_sun_2010} Probabilistic.
+
+\cite{trabelsi_etal_2012} Probabilistic approach (Hidden-Markov Model (HMM)). They train HMMs to model the sequences of users' latent (hidden) "intents" when tagging a resource, but the approach is not personalized at inference time.
+
+\cite{liu_etal_2013} Combine 3 methods linearly: TFIDF keyword extraction, Item-based CF and Corr-LDA.
+
+
+
+\cite{sattigeri_etal_2014}
+Deep Convolutional nets for learning good features for audio tagging. Uses sparse coding, topic models.
+Their contribution is to suggest a custom pooling mechanism for convoluted features.
+For classification, they use things like weighted voting ensembles and Linear SVM.
+
+

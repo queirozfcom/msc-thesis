@@ -1,0 +1,61 @@
+\section{User-centered Methods}\label{section:user_centered_methods}
+
+\subsection{Association Rule Mining}
+
+\cite{frias-martinez_etal_2008}
+
+\subsection{Neighbour-based Methods}
+
+\cite{jaeschke_etal_2007} Resource-based or tag-based CF
+
+\cite{marinho_schmidt-thieme_2008}
+
+\cite{chidlovskii_2012} Propagates tags from content neighbours (and neighbours of neighbours) using LNP (linear neighbourhood propagation)
+
+\cite{mistry_sen_2012} User-based CF
+
+\cite{deng_etal_2013} Simple user-based and resource-based tag propagation from neighbours.
+
+\cite{haifeng_etal_2017} 
+User-based CF. Users are modelled with vectors over the space of tags used. Users are also clustered (K-Means)
+
+\subsection{Graph-based Methods}
+
+\cite{jaeschke_etal_2007} FolkRank 
+
+The FolkRank vectors is taken as the difference between two computations of PageRank: one without a preference vector and one with a preference vector
+The preference vector is designed in a way to give more weight to specific elements (if the goal is to recommend tags given a resource, the preference vector should give more weight to that resource)
+(these explanations were in Ramezani 2011)
+
+\cite{si_etal_2009} Diffusion rank, it's a generalization of PageRank
+
+\cite{liu_fang_2010} Bipartite graph, random walk.
+
+\cite{ramezani_2011} Adapted PageRank, with directed edges. Claims performs better than FolkRank.
+
+\cite{gueye_etal_2014} Propagates tags from neighbour (not just direct neighbours) users. User similarity is measured by how similar users' tag frequencies are.
+(new connections between indirect neighbours are also added by the algorithm)
+
+
+\subsection{Matrix Factorization Methods}
+
+\cite{symeonidis_etal_2008} HOSVD
+
+\cite{rendle_schmidt-thieme_2010} Pairwise Interaction Tensor Factorization (PITF). It's a more efficient way to factorize 3D tensors.
+
+\cite{harvey_etal_2010} LDA on the resource-tag matrix, weighted by user preferences.
+
+\cite{symeonidis_etal_2010} HOSVD and Kernel-SVD on full 3D tensor
+
+\cite{yang_etal_2012} Variant of HOSVD called HOSVD+, that uses a probabilistic interpretation and gives meaningful predictions for missing data imputation.
+
+\cite{yao_etal_2017}
+They model the folksonomy data as a Joint LDA model on both the resource-tag and on the user-tag matrices, jointly.
+
+\subsection{Other}
+
+\cite{hu_etal_2010} Bayesian approach.
+
+\cite{krestel_fankhauser_2010} they train simple recommenders then joins them together via model averaging/voting.
+
+\cite{yin_etal_2010} Bayesian approach.
