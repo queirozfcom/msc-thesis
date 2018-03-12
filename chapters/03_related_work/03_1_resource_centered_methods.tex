@@ -1,29 +1,62 @@
 \section{Resource-centered Methods}\label{section:resource_centered_methods}
 
+In this section, we present a collection of  \textit{resource-centered} methods for tag prediction. They are so called because they leverage only resource-specific information in order to predict what tags should be assigned to a new, unlabelled resource. In other words, all prediction are of \textit{unpersonalized} nature.
+
+We note that, although our problem domain only includes textual documents, we chose to also mention in this section approaches used in other domains, such as audio, video and images. This is because we are mostly interested in how these approaches work irrespective of the choice of features used.
 
 \subsection{Association Rule Mining}
 
-\cite{heymann_etal_2008}
+\ednote{yada yada introduction}
 
-\cite{vanleeuwen_puspitaningrum_2012} Association rules. Uses associations of any length, not just "pairwise" associations.
+In one of the earlier papers on social tag prediction, Heymann et al. \citeyearpar{heymann_etal_2008} have applied \textbf{association rules} of the form $X \rightarrow Y$ (where $X$ and $Y$ are tagsets) in order to expand the set of tags given to a resource. Using techniques such as \textit{Market Basket Analysis}, the authors derive association rules of length 4 and below, using a certain level of support \footnote{A rule's \textit{support} equals the number of examples where both $X$ and $Y$ are present.} as threshold to remove overly noisy rules.
+
+The authors report \citep{heymann_etal_2008} that a surprisingly high number of high quality rules can be found (such as those representing \textit{type-of} relationships and synonyms). Furthermore, the added tags help increase precision and recall for user queries, when the result sets are augmented to include documents tagged with those tags.
+
+The authors also claim that using larger and larger rules would probably increase performance, but computational complexity quickly become prohibitive.
+
+\footnote{Note that this method assumes that a resource already has some tags assigned to it. These are then used to predict another set of tags. This is sometimes called \textbf{tag-set expansion} in order to differentiate it from methods that do not make this assumption.}
+
+Another approach involving association rules was put forward by Van Leeuwen and Puspitaningrum in \citeyear{vanleeuwen_puspitaningrum_2012}. They acknowledge the fact that gains in performance brought about by using larger rules come at a high cost in terms of processing time. They, however, suggest that a compromise can be achieved by choosing a carefully selected set of association rules, such that performance is increase at a lower cost.
+
+Their approach works by using a compression mechanism to efficiently compute expanded tagsets for any given tagset. It computes the most suitable expanded tagsets ranked by support. \footnote{The support for a given tagset is simply the number of times that particular tagset was assigned to a resource in the system.}
 
 \subsection{Content-based tag propagation}
 
-\cite{mishne_2006} Simple content-based propagation
+Here we provide a basic overview of methods which, in one way or another, use the content-based similarity to propagate tags from labelled instances to unlabelled ones.
 
-\cite{sordo_etal_2007}
+In the first approach, SORDO et al. \citeyearpar{sordo_etal_2007} have used both first-order (stylistic) and second-order (mood-based, extracted from the stylistic ones) features and a neighbours-based similarity measure to propagate labels from labelled audio pieces to unlabelled ones.
 
-\cite{moxley_etal_2008} content- and location-based tag propagation
+They reported good results for the approach, as measured by rank-based metrics such as Spearman's rank and Precision@$k$. They claim that ignoring tags with too few assignments improves results and that sometimes using more neighbors is beneficial, while sometimes it's harmful.
 
-\cite{guillaumin_etal_2009} Weighted content-based diffusion
+It should be noted here that this work was not run on a broad folksonomy, since all examples were annotated by a single person.
 
-\cite{li_etal_2009} Weighted content-based tag propagation
+Another interesting example is that of \cite{moxley_etal_2008}. Their approach uses many feature \textit{modalities} to represent a resource (in this case, videos). In other words, they use multiple sources of information to build a feature vector, namely text information from the video transcripts, image information from video snapshots and concept information from external source.
 
-\cite{zhao_etal_2010} Content-based diffusion with more weight to more frequently used tags in the hwole system.
+They report good results using set-based performance metrics (slight variants of precision and recall). Furthermore, they claim that using an average of features built from multiple modalities helps suppress the effect of noisy information.
+
+In \cite{guillaumin_etal_2009}, the authors propose a weighted neighbor approach where one can choose an arbitrary distance measure (i.e. Euclidean, Manhattan, etc) one wishes to use to measure similarity between resource representations. Then, the optimal weights for each resource are found via the optimization of a custom loss function that encodes the accuracy each individual tag prediction. 
+
+In other words, the dataset is used to inform the decision on what weights to use for each resource. This will, in turn, define to what extent tag assignments for each resource will influence those of its neighbors.
+
+This approach has been called \textit{metric learning} and, according to the authors, it has been used in the past in other contexts.
+
+In \cite{li_etal_2009}, the authors have approached the problem from a slightly different angle. Although they have also used content-based similarity to search for neighbors, the weight given to each tag is not just proportional to the similarity between each pair of neighbors; it also incorporates a term that normalizes each tag according to the tag's \textit{prior}, i.e. the overall frequency of a given tag in the whole dataset.
+
+By using rank-based metrics such as Precision@$k$ and Mean Average Precision (\textbf{MAP}), reporting that their method consistently outperforms methods that don't take a tag's overall prior into account.
+
+In conclusion, two common themes in such \textit{content-based} tag propagation approaches seem to be \textbf{a)} designing similarity measures and other ways to retrieve similar resources given a \textit{query} resource and \textbf{b)} once the neighbor resources are found, find meaningful ways to weigh the contribution given by each neighbor in order to predict tags for the query resource. 
 
 \subsection{Resource-based tag propagation}
 
-\cite{auyeung_etal_2009} Uses links in the document to find neighbours and propagate tags from them.
+In this subsection, we will talk about methods which use information \textit{about} the resource (other than its contents encoded as features) to build representations for these resources. These representations are then used in neighbor-based algorithms for actual classification.
+
+\ednote{can I find some OTHER guy who just represented each resource as a vector over tags and did something simple with it?
+}
+
+\cite{auyeung_etal_2009} propose a slightly different approach. They encode each resource as a vector over the space of the full tag vocabulary, so that it resembles a bag-of-words approach, using tags instead of terms in the document. Similarity between resources is then calculated via simple measures like cosine similarity.
+
+The authors report above-benchmark performance when using the described approach to predict tags for unlabelled examples. Metrics used to for gauging performance include Precision@$k$ and NDCG.
+
 
 \subsection{Multi-label Classification/Ranking}
 
