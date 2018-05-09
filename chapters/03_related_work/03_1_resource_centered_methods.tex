@@ -60,37 +60,41 @@ The authors report above-benchmark performance when using the described approach
 
 \subsection{Multi-label Classification/Ranking}
 
-\cite{chen_etal_2008} OvR SVM
+Since resources in an \textbf{STS} can be assigned multiple tags, it is natural to model this problem as a \textbf{Multi-label Classification} (MLC) problem.
 
-\cite{katakis_etal_2008} OvR SVM
+Multi-label learning \footnote{Not to be confused with \textit{multi-class} classification.} (\cite{tsoumakas_katakis_2007}) refers to learning from data that is multi-labelled, that is, data where each example has not just a single label \footnote{These are called \textit{single-label} classification in MLC literature} but multiple ones.
 
-\cite{bertin-mahieux_etal_2008} Boosted Trees (2-stage)
+A more particular approach, generally called \textit{Multi-label Ranking}, refers (\cite{illig_etal_2011}) to problems where not only do instances have multiple labels associated with them, but every label also has a \textit{rank}; in other words, each label assignment also carries a weight, so that labels assigned to a particular example may be ranked with respect to the weight each label has. This is in contrast with regular multi-label classification, where labels are represented with a binary vector, making no distinction between labels. \footnote{Although our own method is of the multi-label ranking type, we find it worthwhile to list regular MLC method due to how similar both are.}
 
-\cite{song_etal_2008}
+\ednote{ADD example here with an instance with binary labels and another one with ranked labels}.
+
+In \cite{katakis_etal_2008}, the authors have applied multi-label classification to the task of classifying HTML pages and journal abstracts into tags.
+
+The chosen method was to train a binary classifier for each individual label, a meta-classification procedure called \textit{Binary Relevance} \footnote{\textit{Binary Relevance} is an adaptation of the well-known \textit{One-versus-All} \citep{rifkin_klautau_2004} classifier, commonly used for multi-class classification.} in the MLC community. The underlying classifier was a simple Naïve Bayes model, trained on the bag-of-words representation of the text documents.
+
+The authors claim good results with their model, while noting that they have restricted the tag vocabulary to those tags appearing in at least 50 documents in order to trim rare tags.
+
+\cite{bertin-mahieux_etal_2008} use a 2-level model to predict tags for audio pieces from a popular STS for songs, namely \textit{last.fm} \footnote{Reachable online via http://last.fm}.
+
+For the first level, they use a technique called \citet{Filter Boosting}, which is an extension to \textit{Adaptive Boosting} meta-learning, better suited at online learning with large datasets. Using decision stumps (decision trees with a single level) as the underlying classifier, they train an individual classifier for each tag, which is also used to extract features to be used downstream.
+
+The second level is another Filter Boosting classifier trained on the output of the first one, possibly dropping features found to be irrelevant by the first level.
+
+They reportedly beat previous performances on this particular dataset and noted that using the first level for feature selection seems to help with generalization.
 
 \cite{shen_etal_2009} Multi-instance Multi-label
 
+ok
+
 \cite{illig_etal_2011}
 
-\cite{lo_etal_2011} SVM and adaboost
+ok
 
-\cite{song_etal_2011} 
-Prototype-based method. Trains a Gaussian Process (GP) classifier for each tag. Then a representative document (prototype) is found for each class. This is used to infer categories for each resource. Then tags are associated with categories and at inference time, tags are suggested depending upon the category of the query resource.
+\cite{song_etal_2011} is an interesting work inasmuch as almost equal attention is given to performance and to training time. They train an adapted \textit{Gaussian Process} model on three different datasets with varying characteristics (\textit{Delicious, Bibsonomy and CiteULike}). They argue that Gaussian Processes are a good fit to the problem at hand (label ranking) because they naturally output posterior probabilities for each class, which can be naturally used for label ranking.
 
-\cite{belem_etal_2014}
-Object-centered approach. They extract all sorts of heuristics (tag co-occurrence, tags assigned to the object by other users, textual features from title, metadata and comments, tag stability, descriptive power, etc) to build the features for a resource and for tags.
-For actual ranking of tag relevance, they use L2R: RankSVM, Random Forests and Genetic Programming approaches.
+In order to make training and inference faster, they only choose $M$, where $M <<< N$ to estimate the hyperparameters for the model, yielding significant gains in training and test times.
 
-\cite{lo_etal_2014}
-Multi-label classification approach. They create a variant of RAkEL where each underlying classifier is treated as an information source, but the weights (coefficients) given to each underlying classifier is not uniform, but learned.
-Tag counts are treated are "costs" to minimize, too.
-
-\cite{yagnik_etal_2014} 
-Multi-label text classification approach, with naive bayes (multinomial) classifier (OvR).Focus is on new resources (no tags yet)
-
-\cite{charte_etal_2015}
-
-Framed as a multi-label text classification. Uses a multi-label KNN.
+Notably, the authors report that their method outperforms competitive alternatives such as SVM by as much as 30\% while only using 5\% of the training data (due to the selection of prototypes).
 
 \cite{kataria_agarwal_2015}
 Words, documents, tags and users are embedded in a shared subspace.
@@ -104,8 +108,6 @@ Stage 2: use the representations learned in stage 1 to learn user representation
 
 Framed the problem as a multi-label text classification problem. They extract features using TFIDF and also Doc2Vec. For ranking tags, they use Neural Nets (binary sigmoid outputs) and SVMs.
 
-\cite{barezi_etal_2017}
-Multi-label classification approach. They cluster labels in groups where a label in one group does not has dependencies on tags in other groups, so they can be learned in parallel.
 
 \subsection{Matrix Factorization Methods}
 
