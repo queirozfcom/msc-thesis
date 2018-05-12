@@ -82,9 +82,13 @@ The second level is another Filter Boosting classifier trained on the output of 
 
 They reportedly beat previous performances on this particular dataset and noted that using the first level for feature selection seems to help with generalization.
 
-\cite{shen_etal_2009} Multi-instance Multi-label
+\cite{shen_etal_2009} introduce a different approach to predicting tags, namely one leveraging \textit{multi-instance} learning \citep{dietterich_etal_1997}, whereby one considers a single training example as a \textit{bag} of instances, rather than a single entity.
 
-ok
+The technique \footnote{This technique was adapted from a previous work by \cite{zhou_zhang_2006} in scene classification} combines multi-instance learning with multi-label learning by splitting a single resource (in this case, tagged documents from the \textit{Delicious} website) into a bag of individual parts, combining these into a single instance by means of clustering and then using those for classifying the original resource into multiple tags.
+
+More specifically, they use a well-known text segmentation algorithm called \textit{TextTiling} \citep{hearst_1994} to split each document into segments. This turns each document into a bag of segments. Then, as per the technique, each bag of segments is transformed into a single feature vector, by means of \textit{k-medoids} clustering \citep{kaufmanl_rousseeuw_1987}.\footnote{In order to enable clustering of multiple bags of vectors, a custom distance metric needs to be used. In this case, the  \textit{Hausdorff} distance metric \citep{huttenlocher_etal_1993} was used.} Once the problem has been reduced into a regular multi-label ranking problem, a simple \textit{one-vs-all} metaclassifier using an SVM model is used for actually predicting  tag scores.
+
+The authors report that this method compares favourably against other common multi-label models such as Binary Relevance and ML-$k$-NN \citep{zhang_zhou_2007}, as evaluated by metrics such as Precision @k, Recall @k and Accuracy @k.
 
 \cite{illig_etal_2011}
 
