@@ -6,6 +6,13 @@
 
 \section{Future Work}
 
+\subsection{Alternative similarity metrics for clustering multi-instances}
 
+The suggested approach uses the Hausdorff distance to calculate similarity between bags of instances, after a document has been split into segments. However, as suggested in the original article about scene classification \citep{zhou_zhang_2006}, Hausdorff distance is but one possible mapping to convert multiple bags into a single feature vector prior to performing clustering. 
 
+Other distance metrics are available for comparing bags of vectors; \cite{huttenlocher_etal_1993} alone cite more than twenty variations that can be used under different conditions. Different metrics may yield different results, particularly when one considers not only sparse but also dense text representations.
+
+\subsection{Alternative clustering algorithms}
+
+While the $k$-medoids algorithm was used in the proposed approach, it remains to be seen whether other similar clustering algorithms could yield better results than those shown. In particular, similar, \textit{centroid-based} clustering algorithms include $k$-means clustering \citep{macqueen_1967}, $k$-medians clustering \citep{jain_dubes_1988} and $k$-means++ \citep{arthur_vassilvitskii_2007}.
 

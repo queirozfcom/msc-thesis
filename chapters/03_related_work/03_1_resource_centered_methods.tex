@@ -8,15 +8,13 @@ We note that, although our problem domain only includes textual documents, we ch
 
 \ednote{yada yada introduction}
 
-In one of the earlier papers on social tag prediction, Heymann et al. \citeyearpar{heymann_etal_2008} have applied \textbf{association rules} of the form $X \rightarrow Y$ (where $X$ and $Y$ are tagsets) in order to expand the set of tags given to a resource. Using techniques such as \textit{Market Basket Analysis}, the authors derive association rules of length 4 and below, using a certain level of support \footnote{A rule's \textit{support} equals the number of examples where both $X$ and $Y$ are present.} as threshold to remove overly noisy rules.
+In one of the earlier papers on social tag prediction, HEYMANN et al. \citeyearpar{heymann_etal_2008} have applied \textit{association rules} of the form $X \rightarrow Y$ (where $X$ and $Y$ are tagsets) in order to expand the set of tags given to a resource. Using techniques such as \textit{Market Basket Analysis}, the authors derive association rules of length 4 and below, using a certain level of support\footnote{A rule's \textit{support} equals the number of examples where both $X$ and $Y$ are present.} as threshold to remove overly noisy rules.
 
 The authors report \citep{heymann_etal_2008} that a surprisingly high number of high quality rules can be found (such as those representing \textit{type-of} relationships and synonyms). Furthermore, the added tags help increase precision and recall for user queries, when the result sets are augmented to include documents tagged with those tags.
 
-The authors also claim that using larger and larger rules would probably increase performance, but computational complexity quickly become prohibitive.
+The authors also claim that using larger and larger rules would probably increase performance, but computational complexity quickly become prohibitive.\footnote{Note that this method assumes that a resource already has some tags assigned to it. These are then used to predict another set of tags. This is sometimes called \textbf{tag-set expansion} in order to differentiate it from methods that do not make this assumption.}
 
-\footnote{Note that this method assumes that a resource already has some tags assigned to it. These are then used to predict another set of tags. This is sometimes called \textbf{tag-set expansion} in order to differentiate it from methods that do not make this assumption.}
-
-Another approach involving association rules was put forward by Van Leeuwen and Puspitaningrum in \citeyear{vanleeuwen_puspitaningrum_2012}. They acknowledge the fact that gains in performance brought about by using larger rules come at a high cost in terms of processing time. They, however, suggest that a compromise can be achieved by choosing a carefully selected set of association rules, such that performance is increase at a lower cost.
+Another approach involving association rules was put forward by \cite{vanleeuwen_puspitaningrum_2012}. They acknowledge the fact that gains in performance brought about by using larger rules come at a high cost in terms of processing time. They, however, suggest that a compromise can be achieved by choosing a carefully selected set of association rules, such that performance is increased at a lower cost.
 
 Their approach works by using a compression mechanism to efficiently compute expanded tagsets for any given tagset. It computes the most suitable expanded tagsets ranked by support. \footnote{The support for a given tagset is simply the number of times that particular tagset was assigned to a resource in the system.}
 
@@ -42,9 +40,9 @@ This approach has been called \textit{metric learning} and, according to the aut
 
 In \cite{li_etal_2009}, the authors have approached the problem from a slightly different angle. Although they have also used content-based similarity to search for neighbors, the weight given to each tag is not just proportional to the similarity between each pair of neighbors; it also incorporates a term that normalizes each tag according to the tag's \textit{prior}, i.e. the overall frequency of a given tag in the whole dataset.
 
-By using rank-based metrics such as Precision@$k$ and Mean Average Precision (\textbf{MAP}), reporting that their method consistently outperforms methods that don't take a tag's overall prior into account.
+By using rank-based metrics such as Precision@$k$ and Mean Average Precision (MAP), they report that their method consistently outperforms approaches that do not take a tag's overall prior into account.
 
-In conclusion, two common themes in such \textit{content-based} tag propagation approaches seem to be \textbf{a)} designing similarity measures and other ways to retrieve similar resources given a \textit{query} resource and \textbf{b)} once the neighbor resources are found, find meaningful ways to weigh the contribution given by each neighbor in order to predict tags for the query resource. 
+In conclusion, two common themes in such \textit{content-based} tag propagation approaches seem to be \textbf{a)} designing similarity measures and other ways to retrieve similar resources given a query resource and \textbf{b)} once the neighbor resources are found, find meaningful ways to weigh the contribution given by each neighbor in order to predict tags for the query resource. 
 
 \subsection{Resource-based tag propagation}
 
@@ -60,11 +58,11 @@ The authors report above-benchmark performance when using the described approach
 
 \subsection{Multi-label Classification/Ranking}
 
-Since resources in an \textbf{STS} can be assigned multiple tags, it is natural to model this problem as a \textbf{Multi-label Classification} (MLC) problem.
+Since resources in an STS can be assigned multiple tags, it is natural to model this problem as a \textit{Multi-label Classification} (MLC) problem.
 
-Multi-label learning \footnote{Not to be confused with \textit{multi-class} classification.} (\cite{tsoumakas_katakis_2007}) refers to learning from data that is multi-labelled, that is, data where each example has not just a single label \footnote{These are called \textit{single-label} classification in MLC literature} but multiple ones.
+Multi-label learning\footnote{Not to be confused with \textit{multi-class} classification.} (\cite{tsoumakas_katakis_2007}) refers to learning from data that is multi-labelled, that is, data where each example has not just a single label \footnote{These are called \textit{single-label} classification in MLC literature} but multiple ones.
 
-A more particular approach, generally called \textit{Multi-label Ranking}, refers (\cite{illig_etal_2011}) to problems where not only do instances have multiple labels associated with them, but every label also has a \textit{rank}; in other words, each label assignment also carries a weight, so that labels assigned to a particular example may be ranked with respect to the weight each label has. This is in contrast with regular multi-label classification, where labels are represented with a binary vector, making no distinction between labels. \footnote{Although our own method is of the multi-label ranking type, we find it worthwhile to list regular MLC method due to how similar both are.}
+A more particular approach, generally called \textit{Multi-label Ranking}, refers (\cite{illig_etal_2011}) to problems where not only do instances have multiple labels associated with them, but every label also has a \textit{rank}; in other words, each label assignment also carries a weight, so that labels assigned to a particular example may be ranked with respect to the weight each label has. This is in contrast with regular multi-label classification, where labels are represented with a binary vector, making no distinction between labels.\footnote{Although our own method is of the multi-label ranking type, we find it worthwhile to list regular MLC method due to how similar both are.}
 
 \ednote{ADD example here with an instance with binary labels and another one with ranked labels}.
 
@@ -76,7 +74,7 @@ The authors claim good results with their model, while noting that they have res
 
 \cite{bertin-mahieux_etal_2008} use a 2-level model to predict tags for audio pieces from a popular STS for songs, namely \textit{last.fm} \footnote{Reachable online via http://last.fm}.
 
-For the first level, they use a technique called \citet{Filter Boosting}, which is an extension to \textit{Adaptive Boosting} meta-learning, better suited at online learning with large datasets. Using decision stumps (decision trees with a single level) as the underlying classifier, they train an individual classifier for each tag, which is also used to extract features to be used downstream.
+For the first level, they use a technique called \texit{Filter Boosting}, which is an extension to \textit{Adaptive Boosting} meta-learning, better suited at online learning with large datasets. Using decision stumps (decision trees with a single level) as the underlying classifier, they train an individual classifier for each tag, which is also used to extract features to be used downstream.
 
 The second level is another Filter Boosting classifier trained on the output of the first one, possibly dropping features found to be irrelevant by the first level.
 
@@ -84,15 +82,11 @@ They reportedly beat previous performances on this particular dataset and noted 
 
 \cite{shen_etal_2009} introduce a different approach to predicting tags, namely one leveraging \textit{multi-instance} learning \citep{dietterich_etal_1997}, whereby one considers a single training example as a \textit{bag} of instances, rather than a single entity.
 
-The technique \footnote{This technique was adapted from a previous work by \cite{zhou_zhang_2006} in scene classification} combines multi-instance learning with multi-label learning by splitting a single resource (in this case, tagged documents from the \textit{Delicious} website) into a bag of individual parts, combining these into a single instance by means of clustering and then using those for classifying the original resource into multiple tags.
+The technique\footnote{This technique was adapted from a previous work by \cite{zhou_zhang_2006} in scene classification} combines multi-instance learning with multi-label learning by splitting a single resource (in this case, tagged documents from the \textit{Delicious} website) into a bag of individual parts, combining these into a single instance by means of clustering and then using those for classifying the original resource into multiple tags.
 
 More specifically, they use a well-known text segmentation algorithm called \textit{TextTiling} \citep{hearst_1994} to split each document into segments. This turns each document into a bag of segments. Then, as per the technique, each bag of segments is transformed into a single feature vector, by means of \textit{k-medoids} clustering \citep{kaufmanl_rousseeuw_1987}.\footnote{In order to enable clustering of multiple bags of vectors, a custom distance metric needs to be used. In this case, the  \textit{Hausdorff} distance metric \citep{huttenlocher_etal_1993} was used.} Once the problem has been reduced into a regular multi-label ranking problem, a simple \textit{one-vs-all} metaclassifier using an SVM model is used for actually predicting  tag scores.
 
 The authors report that this method compares favourably against other common multi-label models such as Binary Relevance and ML-$k$-NN \citep{zhang_zhou_2007}, as evaluated by metrics such as Precision @k, Recall @k and Accuracy @k.
-
-\cite{illig_etal_2011}
-
-ok
 
 \cite{song_etal_2011} is an interesting work inasmuch as almost equal attention is given to performance and to training time. They train an adapted \textit{Gaussian Process} model on three different datasets with varying characteristics (\textit{Delicious, Bibsonomy and CiteULike}). They argue that Gaussian Processes are a good fit to the problem at hand (label ranking) because they naturally output posterior probabilities for each class, which can be naturally used for label ranking.
 
@@ -100,26 +94,37 @@ In order to make training and inference faster, they only choose $M$, where $M <
 
 Notably, the authors report that their method outperforms competitive alternatives such as SVM by as much as 30\% while only using 5\% of the training data (due to the selection of prototypes).
 
-\cite{kataria_agarwal_2015}
-Words, documents, tags and users are embedded in a shared subspace.
-They start off with the assumption that using tags (in addition to words) to learn document representations can help with regularization, because it adds “topic-level” information to the document representations.
-In content-based recommendation, they learn representations for documents and rank the tags for a resource using KNN, SVM Struct and Sparse Gaussian Processes.
-Two-stage method:
-Stage 1: models one layer using the tags for a document and another layer using the words for that document.
-Stage 2: use the representations learned in stage 1 to learn user representations, using “embedding translation” to find the “user” representation that is closest to “document” + “tag”
+\cite{kataria_agarwal_2015} have leveraged recent research on word and document-level embeddings \citep{mikolov_etal_2013,le_mikolov_2014} to build text representations specifically for tag prediction in the context of an STS. Their model, named \textit{Tags2Vec}, extends the   \textit{ParagraphVector} framework by using tag assignment information in addition to word contexts. 
 
-\cite{tao_yao_2016}
+The original \textit{ParagraphVector} model uses a shallow neural network in an unsupervised way to induce document and word representations, by using an objective function that forces a document to be a good predictor or words that occur in it. \textit{Tags2Vec} augments the objective function so that, in addition to words, a document's representation should be also good at predicting tags that are assigned to it.
 
-Framed the problem as a multi-label text classification problem. They extract features using TFIDF and also Doc2Vec. For ranking tags, they use Neural Nets (binary sigmoid outputs) and SVMs.
+These document representations were then used to train SVM and Gaussian Process classifiers using two datasets: \textit{CiteULike} and \textit{Delicious}. The models trained using \textit{Tags2Vec} representations significantly outperform analogous models trained on other representations such as \textit{ParagraphVector} and the traditional TF-IDF vectors, indicating that the additional tag information has indeed helped in inducing better representations for documents in an STS setting.
 
+\cite{tao_yao_2016} also made use of \textit{ParagraphVector} to represent documents in a Chinese STS, namely \textit{ZhiHu}\footnote{https://www.zhihu.com}. These representations were then used to train a One-versus-Rest SVM classifier and also a neural network with one output node for each tag.\footnote{This is a commonly-used way to train neural nets for multi-label problems. While normal neural nets use softmax activations on the last layer, it's also possible to use $N$ output nodes (where $N$ is the size of the tag vocabulary) to obtain individual predictions for each tag.}
+
+They report better results when using document embeddings vis-a-vis bag-of-words features. In addition, they report that results using One-vs-Rest SVM are also better than those obtained using neural networks.
+
+This is an interesting example because it shows the relative performance of neural networks with respect to SVM classifiers. It also shows that document embeddings work for the Chinese language, which has very different structure and syntax when compared to western languages.
 
 \subsection{Matrix Factorization Methods}
 
-\cite{si_sun_2008} Tag-LDA (LDA on Resource-content-tags)
+\ednote{add introduction here}
+
+Latent Dirichlet Allocation (LDA) \citep{blei_etal_2003} is a well-known Topic Modelling method for learning the best way to represent a given corpus into topics. On broad lines, LDA models each document as a distribution over topics which, in turn, are distribution over words.\footnote{The Dirichlet distribution can be seen as a distribution over the space of possible parameter vectors for a multinomial distribution.} As the model is generally intractable, one uses methods such as variational inference (as in the original paper itself) of MCMC-based methods such as Gibbs sampling.
+
+Tag-LDA is a method introduced by \cite{si_sun_2008}, which extends LDA to account for tags in addition to words in a document. In other words, a model is trained to find topics which are not only distributions over words (as in the original LDA model) but distributions over \textit{words and tags}. 
+
+Since this is a supervised model aimed at predicting tags for unseen documents, the test time procedure is as follows: the most likely topic distribution for the query document are calculated, and the most likely tags for each of the topics are retrieved:
+
+$$
+p(t | d ) = \sum_{z \in Z_d} p(t|z) \cdot p(z|d)
+
+\textnormal{where} Z_d \ \textnormal{is the set of topics assigned to document} \ d \ \textnormal{at test time}
+$$\\
 
 \cite{bundschus_etal_2009} LDA on the resource-tag matrix.
 
-\cite{panagakis_kotropoulos_2011} PARAFAC2 tensor factorization.
+\cite{panagopoulos_kotropoulos_2015} PARAFAC2 tensor factorization.
 
 \cite{hu_etal_2012} Train an LDA model on documents -> topic distr, words -> topic distr, tags -> topic distr.
 
@@ -145,6 +150,7 @@ They use graph concepts like Hubs, Bridges and Attached Nodes.
 
 
 \cite{sattigeri_etal_2014}
+
 Deep Convolutional nets for learning good features for audio tagging. Uses sparse coding, topic models.
 Their contribution is to suggest a custom pooling mechanism for convoluted features.
 For classification, they use things like weighted voting ensembles and Linear SVM.
