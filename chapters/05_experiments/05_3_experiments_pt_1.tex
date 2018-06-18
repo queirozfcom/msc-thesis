@@ -1,7 +1,10 @@
 \section{Experiments for Proposal 1}\label{section:experiment_part_1}
 
+{\color{red} TODO: short introduction}
 
 \subsection{TF-IDF weighted Bag-of-words Features, Binary Relevance + Linear SVM Classifier}
+
+{\color{red} TODO: short introduction, add one or two examples of people using this.}
 
 \subsubsection{Results on Dataset 1}
 
@@ -23,6 +26,7 @@
 
 \subsubsection{Discussion}
 
+{\color{red} TODO}
 
 \subsection{TF-IDF weighted Bag-of-words Features, k-Nearest Neighbours Classifier}
 
@@ -36,7 +40,7 @@ Since we only want to use this method as a baseline, we implemented the most bas
 
 \subsubsection{Results on dataset 1}
 
-
+{\color{red} TODO}
 
 \subsubsection{Results on Dataset 2}
 
@@ -57,30 +61,20 @@ In this approach, which has been suggested by \cite{choubey_2011},we first train
 
 \subsubsection{Results on dataset 1}
 
+{\color{red} TODO}
+
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{chapters/05_experiments/images/topic-distances-100d-movielens.png}
-    \caption{Results on the Movielens Dataset, for k=1..10, using 100 components.}
-    \label{fig:ovr_svm_movielens}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{chapters/05_experiments/images/topic-distances-200d-movielens.png}
-    \caption{Results on the Movielens Dataset, for k=1..10, using 200 components.}
-    \label{fig:ovr_svm_movielens}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{chapters/05_experiments/images/topic-distances-400d-movielens.png}
-    \caption{Results on the Movielens Dataset, for k=1..10, using 400 components.}
+    \includegraphics[width=7cm]{chapters/05_experiments/images/movielens-topic-distances.png}
+    \caption{Applying Topic Distances on the Movielens Dataset, with varying values for the choice of LDA components}
     \label{fig:ovr_svm_movielens}
 \end{figure}
 
 \subsubsection{Discussion}
+
+{\color{red} TODO mention results are around the same the original author got}
 
 \subsection{TF-IDF weighted Bag-of-words Features, Topic Words}
 
@@ -88,30 +82,20 @@ In this approach, also suggested by \cite{choubey_2011}, one trains an LDA topic
 
 \subsubsection{Results on dataset 1}
 
+{\color{red} TODO}
+
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{chapters/05_experiments/images/topic-words-100d-movielens.png}
-    \caption{Results on the Movielens Dataset, for k=1..10, using 100 components.}
-    \label{fig:ovr_svm_movielens}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{chapters/05_experiments/images/topic-words-200d-movielens.png}
-    \caption{Results on the Movielens Dataset, for k=1..10, using 200 components.}
-    \label{fig:ovr_svm_movielens}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{chapters/05_experiments/images/topic-words-400d-movielens.png}
-    \caption{Results on the Movielens Dataset, for k=1..10, using 400 components.}
+    \includegraphics[width=7cm]{chapters/05_experiments/images/movielens-topic-words.png}
+    \caption{Applying Topic Words on the Movielens Dataset, with varying values for the choice of LDA components}
     \label{fig:ovr_svm_movielens}
 \end{figure}
 
 \subsubsection{Discussion}
+
+{\color{red} TODO mention results are around the same the original author got}
 
 \subsection{LDA Topic Probabilities, k-nearest Neighbours Classifier}
 
@@ -122,6 +106,8 @@ In other words, LDA can be used as a form of dimensionality reduction to reduce 
 Using these topic probabilities as features, we can then proceed onto classifying the documents using any classifier we wish. We have chose to use two classifier for this task: \textbf{a)} a simple $k$-nearest Neighours Classifier so as to enable comparison between using LDA features and using bag-of-words features and \textbf{b)} (in the next subsection) an SVM classifier, as suggested in the original LDA article.
 
 \subsubsection{Results on dataset 1}
+
+{\color{red} TODO}
 
 \subsubsection{Results on Dataset 2}
 
@@ -140,6 +126,8 @@ As mentioned on the previous subsection, we will compare results between both da
 
 \subsubsection{Results on dataset 1}
 
+{\color{red} TODO}
+
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
@@ -151,7 +139,10 @@ As mentioned on the previous subsection, we will compare results between both da
 
 \subsubsection{Discussion}
 
+{\color{red} TODO}
+
 \subsection{Final Results and discussion}
 
-\ednote{plot all in a single graph}
+{\color{red} TODO: as expected, results in dataset 1 were better but some were better, maybe because it's the way the features are represented.}
 
+{\color{red} TODO: plot all experiments on a single graph to help people compare them}

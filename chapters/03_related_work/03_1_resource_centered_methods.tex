@@ -6,7 +6,7 @@ We note that, although our problem domain only includes textual documents, we ch
 
 \subsection{Association Rule Mining}
 
-\ednote{yada yada introduction}
+{\color{red} TODO: introduction to association rule mining}
 
 In one of the earlier papers on social tag prediction, HEYMANN et al. \citeyearpar{heymann_etal_2008} have applied \textit{association rules} of the form $X \rightarrow Y$ (where $X$ and $Y$ are tagsets) in order to expand the set of tags given to a resource. Using techniques such as \textit{Market Basket Analysis}, the authors derive association rules of length 4 and below, using a certain level of support\footnote{A rule's \textit{support} equals the number of examples where both $X$ and $Y$ are present.} as threshold to remove overly noisy rules.
 
@@ -48,8 +48,7 @@ In conclusion, two common themes in such \textit{content-based} tag propagation 
 
 In this subsection, we will talk about methods which use information \textit{about} the resource (other than its contents encoded as features) to build representations for these resources. These representations are then used in neighbor-based algorithms for actual classification.
 
-\ednote{can I find some OTHER guy who just represented each resource as a vector over tags and did something simple with it?
-}
+{\color{red} TODO: can I find some OTHER guy who just represented each resource as a vector over tags and did something simple with it?}
 
 \cite{auyeung_etal_2009} propose a slightly different approach. They encode each resource as a vector over the space of the full tag vocabulary, so that it resembles a bag-of-words approach, using tags instead of terms in the document. Similarity between resources is then calculated via simple measures like cosine similarity.
 
@@ -64,7 +63,7 @@ Multi-label learning\footnote{Not to be confused with \textit{multi-class} class
 
 A more particular approach, generally called \textit{Multi-label Ranking}, refers (\cite{illig_etal_2011}) to problems where not only do instances have multiple labels associated with them, but every label also has a \textit{rank}; in other words, each label assignment also carries a weight, so that labels assigned to a particular example may be ranked with respect to the weight each label has. This is in contrast with regular multi-label classification, where labels are represented with a binary vector, making no distinction between labels.\footnote{Although our own method is of the multi-label ranking type, we find it worthwhile to list regular MLC method due to how similar both are.}
 
-\ednote{ADD example here with an instance with binary labels and another one with ranked labels}.
+{\color{red} TODO: ADD example image here with an instance with binary labels and another one with ranked labels}
 
 In \cite{katakis_etal_2008}, the authors have applied multi-label classification to the task of classifying HTML pages and journal abstracts into tags.
 
@@ -106,13 +105,13 @@ They report better results when using document embeddings vis-a-vis bag-of-words
 
 This is an interesting example because it shows the relative performance of neural networks with respect to SVM classifiers. It also shows that document embeddings work for the Chinese language, which has very different structure and syntax when compared to western languages.
 
-\subsection{Matrix Factorization Methods}
+\subsection{Methods based on Topic Modelling/Tensor Factorization}
 
-\ednote{add introduction here}
+{\color{red} TODO: introduction to topic modelling / matrix and tensor factorization. Ok to add examples for user-centered methods just to help understand what this is about.}
 
 Latent Dirichlet Allocation (LDA) \citep{blei_etal_2003} is a well-known Topic Modelling method for learning the best way to represent a given corpus into topics. On broad lines, LDA models each document as a distribution over topics which, in turn, are distribution over words.\footnote{The Dirichlet distribution can be seen as a distribution over the space of possible parameter vectors for a multinomial distribution.} As the model is generally intractable, one uses methods such as variational inference (as in the original paper itself) of MCMC-based methods such as Gibbs sampling.
 
-Tag-LDA is a method introduced by \cite{si_sun_2008}, which extends LDA to account for tags in addition to words in a document. In other words, a model is trained to find topics which are not only distributions over words (as in the original LDA model) but distributions over \textit{words and tags}. 
+Tag-LDA is a method introduced by \cite{si_sun_2008}\footnote{Other authors such as \cite{hu_etal_2012} have created slight variations on this method.}, which extends LDA to account for tags in addition to words in a document. In other words, a model is trained to find topics which are not only distributions over words (as in the original LDA model) but distributions over \textit{words and tags}. 
 
 Since this is a supervised model aimed at predicting tags for unseen documents, the test time procedure is as follows: the most likely topic distribution for the query document are calculated, and the most likely tags for each of the topics are retrieved:
 
@@ -122,37 +121,50 @@ p(t | d ) = \sum_{z \in Z_d} p(t|z) \cdot p(z|d)
 \textnormal{where} Z_d \ \textnormal{is the set of topics assigned to document} \ d \ \textnormal{at test time}
 $$\\
 
-\cite{bundschus_etal_2009} LDA on the resource-tag matrix.
+\cite{krestel_fankhauser_2010} also leverage LDA for predicting tags but they use a different approach. They use no content information but just a resource's previous tag assignments as its representation.\footnote{Note that this method assumes that a resource has been assigned at least one tag already.} In other words, instead of documents composed of terms, this approach models resources composed of tags.
 
-\cite{panagopoulos_kotropoulos_2015} PARAFAC2 tensor factorization.
+At training time, hyperparameters for the Dirichlet distribution are inferred, so that a certain number of tag \textit{topics} are found. Each topic is a vector of probabilities for each tag in the vocabulary. At prediction time, the most likely topics for a given resource are estimated and the most likely tags are predicted for that resource. This is similar to the previous work by \cite{si_sun_2008}.
 
-\cite{hu_etal_2012} Train an LDA model on documents -> topic distr, words -> topic distr, tags -> topic distr.
+The authors note that the performance of this method is not as good as when using regular LDA on documents and terms, because the number of tags assigned to a resource is orders of magnitude smaller than the usual number of terms in a document, making it harder for LDA to correctly infer good topics \citep{krestel_fankhauser_2010}.
 
-\cite{zhang_etal_2014} Apply a Sparse Version of LSA on the resource-tag matrix using CUDA GPU.
+In the article \cite{zhang_etal_2014}, the authors also use a topic modelling approach, namely a modified version of Latent Semantic Analysis (LSA) \citep{deerwester_etal_1990}, applied on the resource-tag matrix. They add an additional constraint to LSA, by requiring that all elements in the reduced matrix be \textit{nonnegative}.\footnote{Such methods are generally called Nonnegative Matrix Factorization (NMF).} The nonnegativity constraint helps with interterpretability and ensures the factor matrices are sparse \citep{gillis_2014}.
 
+At training time, the LSA model is trained on the training set (the resource-tag matrix). At inference time, a query resource is projected from the resource-tag space to the topic space, yielding topic probabilities. Finally, tags are suggested for the new resource using the same approach as \cite{si_sun_2008}.
+
+They report that their method outperforms similar topic-modelling and/or dimensionality reduction approaches, such as SVD, LDA and $k$-NN.
 
 \subsection{Graph-based}
 
-\cite{sharma_bedi_2009} Ant-colony approach, with parameterized evaporation.
+It is usually the case that a folksonomy is modelled as a tripartite graph, as explained in the introduction. Many methods take advantage of that fact to leverage graph-based algorithms such as PageRank 5
 
-\cite{wang_etal_2015} Develop a method focused on "hesitant" (i.e. sparsely tagged) webpages. Resources are clustered into rough sets using DenShrink method, to find resource neighbours.
+These methods generally model folksonomies in terms of a graph $G=\langle V,E \rangle$, where $V$ is the set of nodes representing resources, $E$ is the set of edges, which connects nodes if they share a common tag.
 
-They use graph concepts like Hubs, Bridges and Attached Nodes.
+\cite{wang_etal_2015} models resources (in this case, web pages) and tags as a graph $G=\langle V,E,\omega \rangle$, where $\omega$ is a function that defines the weight of the connection between two nodes. Function $\omega$ assigns a weight between two nodes such that it is larger if the two nodes' textual contents is similar, and smaller otherwise.
+
+Once this modelling is complete, the authors apply a clustering method called \textit{DenShrink} \citep{huang_etal_2011} which clusters nodes together. At prediction time, one uses tags in the same cluster to suggest for resources with few or no tags. The authors claim that this method succeeds at suggesting tags for what they call \textit{hesitant} (i.e. with few or no assigned tags) but they do not compare it to other methods in the literature.
+
+\cite{kakade_kakade_2013} propose a different graph-based approach, wherein nodes are resources (in this case, images) and tags. However, differently from previous methods, they build 3 different graphs: in the first graph edges connect resources to tags. In the second graph, nodes are resources and egdes connect resources to other resources, based on feature similarity. Finally, in the third graph, tags are connected to other tags, based on how often they occur together. They call this a \textit{fused graph}.
+
+At prediction time, they perform a \textit{random walk} in these graphs; using the query resources features, they find similar images on the image-image graph. Then, they apply the same method on the image-tag graph and then on the tag-tag graph, in order to arrive at a set of suggested tags for the query resource. They compare multiple variations of their algorithm and conclude that the best performance is achieved using all three graphs and, in addition, performing a technique called \textit{Pseudo Relevance Feedback}.
 
 \subsection{Other}
 
-\cite{si_sun_2010} Probabilistic.
+In this subsection, we describe a few more methods which do not fit into the previous categories. However, we nonetheless deem them important because they show that methods applied to predicting social tags are not limited to the ones in the categories previously mentioned. 
 
-\cite{trabelsi_etal_2012} Probabilistic approach (Hidden-Markov Model (HMM)). They train HMMs to model the sequences of users' latent (hidden) "intents" when tagging a resource, but the approach is not personalized at inference time.
+\cite{si_sun_2010} introduce a generative probabilistic model aimed at inferring the  latent \textit{reasons} behind every tag assignment. This is somewhat inspired by LDA but they also model the \textit{noise} inherent in all STSs.\footnote{This is especially true of \textit{broad} STSs, because of the fact that all users can tag all resources.}
 
-\cite{liu_etal_2013} Combine 3 methods linearly: TFIDF keyword extraction, Item-based CF and Corr-LDA.
+The authors claim that their model outperforms baseline methods like $k$-NN and Naïve Bayes on multiple datasets.
 
+\cite{trabelsi_etal_2012} employ Hidden Markov Models (HMM) \citep{rabiner_1989} to build prediction model for tags. At training time, They model the sequences of users' latent (hidden) \textit{intents} when tagging a resource as the hidden states in the HMM, and the actual tag assignments are the visible states.
 
+At prediction time, the model is used in reverse to infer the hidden state from the observable data. Finally, tags related to the most likely hidden \textit{intent} are suggested for the query resource. They claim their method outperforms similar probabilistic methods in terms of prediction and recall, for multiple values of $k$.
 
-\cite{sattigeri_etal_2014}
+With an ensemble-based approach, \cite{liu_etal_2013} propose a \textit{blending} of multiple method into a single classifier. 
 
-Deep Convolutional nets for learning good features for audio tagging. Uses sparse coding, topic models.
-Their contribution is to suggest a custom pooling mechanism for convoluted features.
-For classification, they use things like weighted voting ensembles and Linear SVM.
+It works as follows: they first extract features from the resources and then train three individual classifiers\footnote{They cite general ensembling theory, whereby an ensemble of unrelated, non-correlated weak classifiers works better than combining classifiers which are similar to one another.}, namely a simple keyword extractor, item-based collaborative filtering and LDA. Next, they train a linear model to find out what are the optimal weights $\lambda$ such that a linear combination of the results of the three individual is better than each individual classifier.
 
+In order to ascertain the performance of the proposed solution, they compare the output to each of the individual underlying classifiers, and conclude that the blending method succeeds at increasing performance on a crawl of the \textit{Delicious} website.
 
+\cite{sattigeri_etal_2014} propose using Deep Architectures for learning good features for audio tagging. More precisely, they train low-dimensional representations (\textit{embeddings}) for audio data, apply a sparse transformation and then cluster the obtained features into similar categories. Finally, they apply a simple Linear SVM classifier on the final features. The authors claim that their approach has comparable performance to the best competitors at the time, even though a relatively simple classifier was used.
+
+Although this method is specifically used for the audio domain, we believe that it highlights that the feature extraction step may be just as important as choices over which classifiers and hyperparameters to use.

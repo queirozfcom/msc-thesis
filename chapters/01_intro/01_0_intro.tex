@@ -1,18 +1,18 @@
 \chapter{Introduction}\label{chap:intro}
 
-say that we will use "social tagging systems" and "folksonomies" interchangeably.
+{\color{red} TODO: say that we will use "social tagging systems" and "folksonomies" interchangeably. }
 
 \section{Motivation}\label{section:intro_motivation}
 
-The motivation for this work was twofold. 
+The motivation for this work is twofold. 
 
 Firstly, I myself take part in many online communities, including some where I need to organize resources in one way or another. I am frequently frustrated with the fact that many websites do not provide any organization capabilities other than placing things in \textit{categories} or \textit{folders}.
 
 I am witness to the fact that these methods don't scale at all for anything other than trivial examples \footnote{Say you need to place a scientific article called \textit{The History of Football in Europe} in a folder. Do you place it under "history", "sports" or under "Europe"?} and I believe tagging is a good way forward.
 
-Secondly, I'm interested in Machine Learning and I realized that predicting tags for resources in a social setting would not only be a worthy problem from a theoretical standpoint, but could also effectively help people in the real world navigate these online communities.
+Secondly, it is well established that suggesting tags to users promotes faster convergence to a common vocabulary \citep{marlow_etal_2006,hassan_etal_2009, dattolo_etal_2010} and increases the likelihood that resources are tagged \citep{dattolo_etal_2010,floeck_etal_2010}. Additionally, it has been claimed that identifying good tags from a set of recommended tags is orders of magnitude less demanding than coming up with good tags without intervention \citep{marinho_etal_2012}.
 
-\ednote{MAYBE CITE A COUPLE OF BENEFITS OF TAGGING AS STATED BY HEYMANN ET AL?}
+Since there is massive amounts of data available from Social Tagging Systems, it's natural to think of a data-driven, machine-learning based method to pursue that goal. We realized that predicting tags for resources in a social setting would not only be a worthy problem from a theoretical standpoint, but could also effectively help people in the real world navigate these online communities.
 
 \section{Problem scope}\label{section:intro_problem}
 
@@ -22,18 +22,19 @@ We chose to address the problem of how to correctly predict which tags will be u
 
 Since this problem touches upon many areas of scientific knowledge, such as machine learning, natural language processing (for textual resources), computer vision (similarly, for images and visual objects), recommender systems and so on, we would like to further limit our scope in a more precise manner.
 
-Firstly, folksonomies may be (according to commonly-cited sources such as \cite{}) divided among broad and narrow ones. 
-Broad folksonomies are those we not just a resource's owner but the whole community of users may assign tags to any one resource available on the system. Narrow folksonomies, on the other hand, only allow items to be tagged once, by the person who has first added that particular item to the system (i.e. that item's owner).
+Firstly, one may create a distinction (according to commonly-cited sources such as \cite{wal_2005_broad_and_narrow}) between \textbf{broad} and \textbf{narrow folksonomies}. Broad folksonomies are those where not just a resource's owner but the whole community of users may assign tags to any one resource available on the system. Narrow folksonomies, on the other hand, only allow items to be tagged once, by the person who has first added that particular item to the system (i.e. that item's owner).
 
-Broad folksonomies exhibit more diversity and richness of information, not to mention sheer scale, which makes them more amenable to analysis by data-driven methods, such as machine learning. More concretely, it has been suggested that a shared, global vocabulary of tags cannot be observed in narrow folksonomies \cite{schifanella_etal_2010}.\ednote{also mention that broad systems are annotated by non-expert users, which has an effect on the amount of noisy tags.}
+Broad folksonomies exhibit more diversity and richness of information, not to mention sheer scale, which makes them more amenable to analysis by data-driven methods, such as machine learning. More concretely, it has been suggested that a shared, global vocabulary of tags cannot be observed in narrow folksonomies \cite{schifanella_etal_2010}.
 
-Secondly, some authors (\cite{illig_etal_2011,song_etal_2011} have made a distinction between resource-centered and user-centered approaches. We have chosen to use a resource-centered approach to predicting tags assigned to an item in the system, mainly due to the fact \citep{song_etal_2011} that user-centered approaches do not perform so well vis-a-vis resource-centered methods because the distribution of users and tags in broad folksonomies follow a power law and reusability of tags by each individual user is low. 
+Secondly, many authors (\cite{illig_etal_2011,song_etal_2011} have made a distinction between \textbf{resource-centered} and \textbf{user-centered approaches}. This refers to the fact that some approaches take user information into account when performing tag prediction (user-centered) while others take a global view, giving the same predictions for every user (resource-centered).\footnote{Other authors, e.g. \cite{zhang_etal_2014} refer to these two types as \textit{personalized} and \textit{collective} tag recommendation.}
 
-This makes resource-centered approaches more robust due to the fact that we generally have much more information about resources than about users. This is particularly true with textual resources. Additionally, resource-centered methods can also be used in the absence of user information, the so called \textit{cold start} problem.
+We have chosen to focus on resource-centered approaches to predicting tags in broad folksonomies. This is due to the previous reasons and to the fact \citep{song_etal_2011} that user-centered approaches do not perform so well vis-a-vis resource-centered methods; the distribution of users and tags in broad folksonomies follow a power law and reusability of tags by each individual user is low. 
 
-Another point worth mentioning is that most similar works in the literature do not take into account the number of times each tag has been assigned to a given resource.\ednote{add a footnote here: This has been called the "set-model" as opposed to the "bag model" of tagging, by authors such as _ADD THE GUY HERE_}. In other words, a \textit{binary} tag-assignment model or \textbf{BTAS} \citep{illig_etal_2011} is used, whereby a tag assignment is equated with the fact that \textit{there exists at least one} user who assigned that tag to that resource. We follow that convention in this article.\footnote{Adapted from \cite{illig_etal_2011}.}
+This makes resource-centered approaches more robust as we generally have much more information about resources than about users. This is particularly true with textual resources and broad folksonomies. Also, resource-centered methods have the added benefit of being able to work in the absence of user information, the so called \textit{cold start} problem.
 
-\begin{definition}{BTAS}
+Another point worth mentioning is that most similar works in the literature do not take into account the number of times each tag has been assigned to a given resource. In other words, a \textit{binary} tag-assignment model or \textbf{BTAS} \citep{illig_etal_2011} is used, whereby a tag assignment is equated with the fact that \textit{there exists at least one} user who assigned that tag to that resource. We follow that convention in this article.
+
+\begin{definition}{BTAS}\footnote{Adapted from \cite{illig_etal_2011}.}
 
 Let $TAS$ be all tag assignments made by all users $u \in U$, using tags $t \in T$ for resources $r \in R$:
 
@@ -68,6 +69,7 @@ Out of these 399 relevant works, we further refined our set to 285 articles, by 
 
 \section{Document structure}\label{section:intro_structure}
 
-In \autoref{chap:intro} \ldots
+{\color{red} TODO: add final sections and section numbers here In \autoref{chap:intro} \ldots Finally, \autoref{chap: conclusion} we conclude and point to possible ways in which this work may be extended and/or continued.}
 
-Finally, \autoref{chap: conclusion} we conclude and point to possible ways in which this work may be extended and/or continued.
+
+
