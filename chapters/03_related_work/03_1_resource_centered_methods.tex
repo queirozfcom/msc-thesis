@@ -107,7 +107,11 @@ This is an interesting example because it shows the relative performance of neur
 
 \subsection{Methods based on Topic Modelling/Tensor Factorization}
 
-{\color{red} TODO: introduction to topic modelling / matrix and tensor factorization. Ok to add examples for user-centered methods just to help understand what this is about.}
+We now turn our attention to methods that leverage \textit{Topic Modelling} and/or Tensor Factorization. We group these two topics together because topic modelling and tensor factorization are sometimes intimately related, e.g. \textit{Latent Semantic Analysis} (LSA) \citep{deerwester_etal_1990} is nothing but Singular Value Decomposition (SVD) applied to a term-document matrix.
+
+Topic modelling methods used include LSA and variations \citep{zhang_etal_2014} and LDA and variations \citep{gong_etal_2017,wu_etal_2016,si_sun_2008}.
+
+With regards to tensor factorization, this method is heavily used in \textit{user-centered} approaches such as \cite{rendle_schmidt-thieme_2009}, \cite{rendle_etal_2009} and \cite{symeonidis_etal_2008}, all of whom model the user-resource-tag relation as a tensor, and apply factorization to arrive at more economic representations that can be used for predicting unlabelled resources.
 
 Latent Dirichlet Allocation (LDA) \citep{blei_etal_2003} is a well-known Topic Modelling method for learning the best way to represent a given corpus into topics. On broad lines, LDA models each document as a distribution over topics which, in turn, are distribution over words.\footnote{The Dirichlet distribution can be seen as a distribution over the space of possible parameter vectors for a multinomial distribution.} As the model is generally intractable, one uses methods such as variational inference (as in the original paper itself) of MCMC-based methods such as Gibbs sampling.
 
@@ -136,6 +140,8 @@ They report that their method outperforms similar topic-modelling and/or dimensi
 \subsection{Graph-based}
 
 It is usually the case that a folksonomy is modelled as a tripartite graph, as explained in the introduction. Many methods take advantage of that fact to leverage graph-based algorithms such as PageRank 5
+
+{\color{red} TODO: finish this}
 
 These methods generally model folksonomies in terms of a graph $G=\langle V,E \rangle$, where $V$ is the set of nodes representing resources, $E$ is the set of edges, which connects nodes if they share a common tag.
 

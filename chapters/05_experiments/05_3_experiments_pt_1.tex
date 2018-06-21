@@ -32,7 +32,7 @@
 
 The $k$-Nearest Neighbors is a very popular machine learning method that can be used both for classification and for regression. It consists in simply calculating the distances (assuming an $n$-dimensional representations) to every other instance, at \textit{inference time}\footnote{Methods such as $k$-NN are called \textit{lazy} methods because they need no training, as they defer all processing until actual inference is made.}. Then, each neighbor up to $k$ is treated as a source of information to help predict the class for the query instance. 
 
-With respect to tag prediction, multiple (\cite{martinez_etal_2009,chidlovskii_2012,zhang_etal_2015} to cite but a few) authors have applied some form of neighbor-based classifier to predicting tags for a query resource. 
+With respect to tag prediction, multiple (\cite{martinez_etal_2009,chidlovskii_2012,zhang_etal_2015,charte_etal_2015}\footnote{\cite{charte_etal_2015} have applied an approach very similar to ours, namely using multi-label $k$-NN to classify text into multiple tags, using TF-IDF representation. } to cite but a few) authors have applied some form of neighbor-based classifier to predicting tags for a query resource. 
 
 In general, they proceed by finding nearest neighbors based on the resource's vector representation, as per the usual algorithm. Then, each neighbor's binary tag vector is added up and tags which are more commonly seen in the query instance's neighborhood are suggested.
 
@@ -97,7 +97,7 @@ In this approach, also suggested by \cite{choubey_2011}, one trains an LDA topic
 
 {\color{red} TODO mention results are around the same the original author got}
 
-\subsection{LDA Topic Probabilities, k-nearest Neighbours Classifier}
+\subsection{LDA Topic Probabilities, k-nearest Neighbours Classifier}\label{sub:lda_topics}
 
 Although Latent Dirichlet Allocation (LDA) \citep{blei_etal_2003} was originally created as a means to infer representative words for topics in corpora, it can be (and frequently is) used to extract features for documents. In fact, this approach was used and suggested in the original paper itself.
 

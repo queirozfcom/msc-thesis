@@ -57,7 +57,23 @@ Since the beginning of STSs, it has been observed that such systems grow in an o
 
 More generally, the term \textbf{folksonomy} has been used to describe  these emerging patterns of informal organization and meaning assumed by tags in a Social Tagging System \citep{mathes_2004,wal_2005_folksonomy}.
 
-{\color{red} TODO: ADD here mathematical formulation of folksonomies (tripartite graph model) as per \cite{mika_2007}}
+According to \cite{mika_2007}, one way to model folksonomies is via \textit{tripartite hypergraphs}. Hypergraphs are generalizations of graphs \citep{berge_1985} where edges can join not just two but multiple nodes. Furthermore, hypergraphs representing folksonomies are also tripartite, inasmuch as there is a three-way \textit{partitioning} scheme (namely users-resources-tags) such that edges do not connect nodes that are in the same partition:
+
+\begin{figure}[H]
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+    \includegraphics[width=0.8\textwidth]{chapters/02_social_tagging/images/folksonomy-hypergraph.png}
+    \caption{User1-Tag1-Item1 (in red) is a single \textit{hyperedge} in this folksonomy hypergraph.}
+    \label{fig:folksonomy_hypergraph}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+    \includegraphics[width=0.8\textwidth]{chapters/02_social_tagging/images/tripartite.png}
+    \caption{This is a \textit{tripartite} hypergraph because we can find 3 disjoint partitions}
+    \label{fig:folksonomy_tripartite}
+    \end{subfigure}
+    \caption{A folksonomy can be represented as a tripartite hypergraph, where three-way hyperedges connect users, tags and items. Adapted from \cite{rawashdeh_etal_2012}. (Best viewed in colour).}
+\end{figure}
 
 The word \textit{folksonomy} itself (formed by \textit{folk} + \textit{taxonomy}) points to the fact that, differently from a rigid, often expert-driven taxonomy, the patterns that arise with the free use of tags by a community follows a more fluid, hapzard fashion, as can be  visualized in the next image where the the tag \textit{afghanistan} was used as search criterium on a photo-sharing website: 
 

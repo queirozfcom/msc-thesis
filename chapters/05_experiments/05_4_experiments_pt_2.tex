@@ -89,13 +89,19 @@ The objective of the experiments in this section is to ascertain whether (if at 
 
 \subsection{MIMLSVM with LDA Topic Probabilities as Features}
 
-{\color{red} TODO: mention LDA and refer back to the other section where I explain it}
+Latent Dirichlet Allocation (LDA) \cite{blei_etal_2003} was originally thought of as an unsupervised method to learn the best way to infer latent topics for documents, based upon the distribution of words in them. 
+
+As mentioned before in section \ref{sub:lda_topics}, the original LDA article itself suggests that topic probabilities be used as features to represent a document. This way, LDA can be thought of as a form of dimensionality reduction for documents, reducing the size of feature vectors from $V$, where $V$ is the size of the vocabulary to $D$, where $D$ is the number of components chosen when training the LDA model.
+
+Each document is therefore represented as a feature vector of size $D$, where each $d_i \in D$ represents how much topic $i$ is present is a document, as per \cite{blei_etal_2003}. Since this vector is a dense vector, it serves out purpose of experimenting on using MIMLSVM on dense document representations.
 
 \subsubsection{Results on dataset 1}
 
 {\color{red} TODO}
 
 \subsubsection{Results on Dataset 2}
+
+
 
 \subsubsection{Discussion}
 
@@ -105,7 +111,16 @@ The objective of the experiments in this section is to ascertain whether (if at 
 
 \subsubsection{Results on dataset 1}
 
+{\color{red} TODO}
+
 \subsubsection{Results on Dataset 2}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/movielens-mimlsvm-embeddings.png}
+    \caption{MIMLSVM classifier applied on the Movielens dataset, using TF-IDF weighted bag-of-embeddings features.}
+    \label{fig:knn_lda_movielens}
+\end{figure}
 
 \subsubsection{Discussion}
 
