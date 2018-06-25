@@ -10,7 +10,7 @@ This dataset has been created during June 2008 for \cite{zubiaga_etal_2009}, for
 
 \subsubsection{Construction}
 
-This dataset was constructed using by subscribing to the 140 most popular tags on the Delicious.com website \footnote{Delicious was a popular online bookmarking website now inactive.} between April 07, 2008 and April 12, 2008.  Every time a URL was tagged using one of these 140 tags, the corresponding HTML document would be stored in the database (along with all tags assigned to it, even if they weren't in the top 140 set).
+This dataset was constructed using by subscribing to the 140 most popular tags on the Delicious.com website\footnote{Delicious was a popular online bookmarking website now inactive.} between April 07, 2008 and April 12, 2008.  Every time a URL was tagged using one of these 140 tags, the corresponding HTML document would be stored in the database (along with all tags assigned to it, even if they weren't in the top 140 set).
 
 Once this dataset was collected, all tags having occurred in less than two documents were removed (so as to abide by the website's "common tag" definition and to remove overly noisy tags). Also, webpages written in languages other than English were also removed from the dataset.
 
@@ -64,7 +64,7 @@ The textual contents consisted of HTML pages. Once more following literature con
     \label{fig:delicious_tag_doc_distr}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{chapters/05_experiments/images/delicious_resource_per_tag.png}
     \caption{Distribution of the number of documents each tag was assigned to in the Delicious t-140 dataset (after pruning and preprocessing, not counting multiple assignments).}
@@ -82,7 +82,7 @@ While it is true that combining both datasets yields another dataset which diffe
 \renewcommand{\arraystretch}{1.5}
 
 
-\begin{table}[!h]
+\begin{table}[H]
 \centering
 \caption{Dataset Statistics: MovieLens 20M + IMDB Synopses (after pruning and preprocessing)}
 \begin{tabular}{|c|c{9}|}
@@ -107,14 +107,14 @@ While it is true that combining both datasets yields another dataset which diffe
 \label{tab:dataset_statistics_delicious}
 \end{table}
 
-\begin{figure}[!h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{chapters/05_experiments/images/movielens_tags_per_resource.png}
     \caption{Distribution of the number of unique tags assigned to each document in the Movielens 20M + IMDB Synopses dataset (after pruning and preprocessing).}
     \label{fig:delicious_tag_doc_distr}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{chapters/05_experiments/images/movielens_resources_per_tag.png}
     \caption{Distribution of the number of documents each tag was assigned to in the Movielens 20M + IMDB Synopses dataset (after pruning and preprocessing, not counting multiple assignments).}

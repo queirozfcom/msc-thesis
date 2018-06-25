@@ -1,45 +1,37 @@
 \section{Other Aspects}\label{section:other_aspects}
 
-\subsection{Feature Representation}
+In this section, we will go over a couple of aspects we deem important inasmuch as they are \textit{model-agnostic} - these can be use no matter what approach one takes for predicting tags in a social tagging context.
 
-{\color{red} TODO: talk about feature learning like word/document embeddings, }
+\subsection{Data Representation}
 
-\cite{tatu_etal_2008} Embeds user profiles and resource profiles in the same feature space.
+Feature representation is an essential part of any kind of machine learning, because any kind of information (be it text, images, sound, etc) must be encoded as vectors so that models can be trained on them. In this subsection we cite a couple of approaches that have leveraged alternative feature representations for the task of predicting social tags.
 
-\cite{han_etal_2010} project video features and image features into the same subspace. Transfer learning.
+\cite{han_etal_2010} suggest an interesting technique wherein they use concepts from \textit{transfer learning} \citep{pan_yang_2010} to train an embedding matrix $M$ on a training dataset. At test time, $M$ is used to project the test data into a lower dimensional vector space such that the correlations between the multiple labels are kept. Finally, a simple regularized linear regression model is used to train an independent classifier for each label.
 
-\cite{kataria_agarwal_2015} project both documents, tags and users into the same vector subspace.
+The authors claim that their method outperforms similar and baseline methods on an image tagging dataset, as measured by ranked metrics such as Mean Average Precision (MAP) and Precision@$k$.
 
-\subsection{Dimensionality Reduction}
+\cite{kataria_agarwal_2015} suggest an approach whereby resources (in this case, text documents) and tags are represented in the same shared subspace. More specifically, they train so-called \textit{translational embeddings} \citep{bordes_etal_2013} using a shallow neural network that forces the feature vectors to assume representations that minimize a loss function that represents the relationship between documents and tags (and optionally users).\footnote{One may argue that this is similar to training paragraph vectors (as in \cite{le_mikolov_2014}), wherein neural networks are used to force the learning of vector representations that minimize the relationship between paragraph vectors and words therein.}
 
-{\color{red} TODO: intro to dimensionality reduction }
+They claim their method outperfoms baseline methods, when used as preprocessing step for multi-label classification problems, where the actual classifiers may be neural networks, SVMs or method based on Gaussian Processes.
 
-\cite{song_etal_2008} Low Rank Matrix Factorization
+% \subsection{Dimensionality Reduction}
 
-% \subsection{Classification versus Ranking}
+% \textit{Dimensionality reduction}\footnote{See \cite{maaten_etal_2008} for a comprehensive review on the topic} refers to techniques that aim at reducing the sizes of matrices and tensor such that a more compact and economic representation is obtained, while keeping information loss at a minimum.
 
-% Authors that specifically frame the problem as a ranking problem.
+% Some common examples of techniques aimed at reducing the dimensionality of data are Principal Component Analysis (PCA) \cite{wold_etal_1987}, Singular Value Decomposition (SVD) and Autoencoders \citep{bengio_etal_2007}.
 
-% \cite{sigurbjoernsson_zwol_2008}
+% \cite{song_etal_2008} Low Rank Matrix Factorization
 
-% \cite{chen_etal_2008}
-
-% \cite{cao_etal_2009} Ranking SVM, only suggests top 5 tags.
-
-% \cite{song_etal_2008,song_etal_2011}
-
-% \cite{belem_etal_2014}
-
-% \ednote{anyone who uses metrics such as P@k, R@k, F1@k, etc}
 
 \subsection{Clustering}
 
-{\color{red} TODO: intro to clustering }
+Clustering\footnote{See \cite{jain_2010} for a comprehensive overview and summary on data clustering.} refers to a type of unsupervised machine learning techniques whose objective is to group instances in order to extract common patterns and other similarities.
 
-\cite{nikolopoulos_etal_2009} Break down images into objects then try to cluster individual objects using k-means then use SVM.
+\cite{shen_etal_2009}\footnote{This method is explained in detail in section \ref{section:experiment_part_2}.} use $k$-medoids clustering to predict tags for text data. They first break up each individual document into segments by using the \textit{TextTiling}  procedure \citep{hearst_1994} and then cluster the segments back together. Finally, classification is done using SVM classifiers.
 
-\cite{leginus_etal_2012} Groups tags into clusters (according to different forms of tag co occurrence) to reduce tag sparsity and then applied HOSVD on the folksonomy 3D Tensor.
-Different cluster techniques are used, such as Correlated Feature Hashing, Spectral K-Means, K-Means and Mean-Shift. Optimal Parameters for HOSVD are found using Genetic Algorithms.
+In a somewhat similar approach, \cite{nikolopoulos_etal_2009} use $k$-means with additional connectivity constraints to break up images into regions.\footnote{This is known as image segmentation \citep{haralick_shapiro_1985}.} Then, regions from multiple images are clustered together in order to find the general topics represented in the images. Using a labelled dataset with multiple tags for each image, they construct a derived dataset where each region cluster is assigned the most common tags for all the regions in that cluster. Finally, a simple multi-label SVM classifier is used for actual prediction. 
+
+\cite{leginus_etal_2012} present a different take on clustering because, unlike the previous examples, they apply clustering not on the examples but on the labels. In other words, they cluster labels into label clusters, based on similarity. They use clustering techniques such as $k$-Means, Spectral $k$-Means and Mean Shift and report gains in efficiency and accuracy when using these representations, when compared to using the full data.
 
 
 

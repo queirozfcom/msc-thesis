@@ -16,13 +16,13 @@ The authors also claim that using larger and larger rules would probably increas
 
 Another approach involving association rules was put forward by \cite{vanleeuwen_puspitaningrum_2012}. They acknowledge the fact that gains in performance brought about by using larger rules come at a high cost in terms of processing time. They, however, suggest that a compromise can be achieved by choosing a carefully selected set of association rules, such that performance is increased at a lower cost.
 
-Their approach works by using a compression mechanism to efficiently compute expanded tagsets for any given tagset. It computes the most suitable expanded tagsets ranked by support. \footnote{The support for a given tagset is simply the number of times that particular tagset was assigned to a resource in the system.}
+Their approach works by using a compression mechanism to efficiently compute expanded tagsets for any given tagset. It computes the most suitable expanded tagsets ranked by support.\footnote{The support for a given tagset is simply the number of times that particular tagset was assigned to a resource in the system.}
 
 \subsection{Content-based tag propagation}
 
 Here we provide a basic overview of methods which, in one way or another, use the content-based similarity to propagate tags from labelled instances to unlabelled ones.
 
-In the first approach, SORDO et al. \citeyearpar{sordo_etal_2007} have used both first-order (stylistic) and second-order (mood-based, extracted from the stylistic ones) features and a neighbours-based similarity measure to propagate labels from labelled audio pieces to unlabelled ones.
+In the first approach, \cite{sordo_etal_2007} have used both first-order (stylistic) and second-order (mood-based, extracted from the stylistic ones) features and a neighbours-based similarity measure to propagate labels from labelled audio pieces to unlabelled ones.
 
 They reported good results for the approach, as measured by rank-based metrics such as Spearman's rank and Precision@$k$. They claim that ignoring tags with too few assignments improves results and that sometimes using more neighbors is beneficial, while sometimes it's harmful.
 
@@ -59,7 +59,7 @@ The authors report above-benchmark performance when using the described approach
 
 Since resources in an STS can be assigned multiple tags, it is natural to model this problem as a \textit{Multi-label Classification} (MLC) problem.
 
-Multi-label learning\footnote{Not to be confused with \textit{multi-class} classification.} (\cite{tsoumakas_katakis_2007}) refers to learning from data that is multi-labelled, that is, data where each example has not just a single label \footnote{These are called \textit{single-label} classification in MLC literature} but multiple ones.
+Multi-label learning\footnote{Not to be confused with \textit{multi-class} classification.} (\cite{tsoumakas_katakis_2007}) refers to learning from data that is multi-labelled, that is, data where each example has not just a single label\footnote{Problems where each example has a single label are, unsurprisingly, referred to as \textit{single-label} classification in MLC literature} but multiple ones.
 
 A more particular approach, generally called \textit{Multi-label Ranking}, refers (\cite{illig_etal_2011}) to problems where not only do instances have multiple labels associated with them, but every label also has a \textit{rank}; in other words, each label assignment also carries a weight, so that labels assigned to a particular example may be ranked with respect to the weight each label has. This is in contrast with regular multi-label classification, where labels are represented with a binary vector, making no distinction between labels.\footnote{Although our own method is of the multi-label ranking type, we find it worthwhile to list regular MLC method due to how similar both are.}
 
@@ -71,7 +71,7 @@ The chosen method was to train a binary classifier for each individual label, a 
 
 The authors claim good results with their model, while noting that they have restricted the tag vocabulary to those tags appearing in at least 50 documents in order to trim rare tags.
 
-\cite{bertin-mahieux_etal_2008} use a 2-level model to predict tags for audio pieces from a popular STS for songs, namely \textit{last.fm} \footnote{Reachable online via http://last.fm}.
+\cite{bertin-mahieux_etal_2008} use a 2-level model to predict tags for audio pieces from a popular STS for songs, namely \textit{last.fm}\footnote{Reachable online via http://last.fm}.
 
 For the first level, they use a technique called \texit{Filter Boosting}, which is an extension to \textit{Adaptive Boosting} meta-learning, better suited at online learning with large datasets. Using decision stumps (decision trees with a single level) as the underlying classifier, they train an individual classifier for each tag, which is also used to extract features to be used downstream.
 
@@ -139,11 +139,11 @@ They report that their method outperforms similar topic-modelling and/or dimensi
 
 \subsection{Graph-based}
 
-It is usually the case that a folksonomy is modelled as a tripartite graph, as explained in the introduction. Many methods take advantage of that fact to leverage graph-based algorithms such as PageRank 5
-
-{\color{red} TODO: finish this}
+It is usually the case that a folksonomy is modelled as a tripartite graph, as explained on section \ref{social_tagging_folksonomies}. Many methods take advantage of that fact to leverage graph-based algorithms such as PageRank 5
 
 These methods generally model folksonomies in terms of a graph $G=\langle V,E \rangle$, where $V$ is the set of nodes representing resources, $E$ is the set of edges, which connects nodes if they share a common tag.
+
+Although the methods we describe next all take a resource-centered approach to tag prediction\footnote{Because this dissertation is focused on this type of methods.}, we deem worthwhile to mention that it is in \textit{user-centered} approaches that graph-based models have been more heavily used. The most widely used and cited graph-based method is probably \textit{FolkRank} \citep{jaeschke_etal_2007}, an adaptation of the famous \textit{PageRank} algorithm \citep{page_etal_1999}, trained to predict tags in a personalized manner. Methods based on Random Walks are also commonly used in user-centered approaches \citep{mrosek_etal_2009,si_etal_2009,jin_etal_2010}.   
 
 \cite{wang_etal_2015} models resources (in this case, web pages) and tags as a graph $G=\langle V,E,\omega \rangle$, where $\omega$ is a function that defines the weight of the connection between two nodes. Function $\omega$ assigns a weight between two nodes such that it is larger if the two nodes' textual contents is similar, and smaller otherwise.
 
