@@ -1,8 +1,9 @@
 \chapter{Introduction}\label{chap:intro}
 
 {\color{red} TODO: talk about the explosion in Internet usage, say that it is getting ever harder to categorize stuff, mention that examples of STS will be given in the next sections.
-
 say that we will use "social tagging systems" and "folksonomies" interchangeably. }
+
+\ednote{Antes de começar a ter sections é melhor ter um texto introduzindo o capítulo}
 
 \section{Motivation}\label{section:intro_motivation}
 
@@ -11,6 +12,8 @@ The motivation for this work is twofold.
 Firstly, I myself take part in many online communities, including some where I need to organize resources in one way or another. I am frequently frustrated with the fact that many websites do not provide any organization capabilities other than placing things in \textit{categories} or \textit{folders}.
 
 I am witness to the fact that these methods don't scale at all for anything other than trivial examples \footnote{Say you need to place a scientific article called \textit{The History of Football in Europe} in a folder. Do you place it under "history", "sports" or under "Europe"?} and I believe tagging is a good way forward.
+
+\ednote{Claro que isso já foi reconhecido há muito tempo pelo pessoal de biblioteconomia e isso é tratado com coisas como classificação facetada ou mesmo pelo padrão de classificação que permite colocar o mesmo item em vários locais da hieraquia. O próprio Google Mail também faz isso, permitindo várias tags}
 
 Secondly, it is well established that suggesting tags to users promotes faster convergence to a common vocabulary \citep{marlow_etal_2006,hassan_etal_2009, dattolo_etal_2010} and increases the likelihood that resources are tagged \citep{dattolo_etal_2010,floeck_etal_2010}. Additionally, it has been claimed that identifying good tags from a set of recommended tags is orders of magnitude less demanding than coming up with good tags without intervention \citep{marinho_etal_2012}.
 
@@ -22,7 +25,7 @@ When considering Social Tagging Systems, one can envision many different problem
 
 We chose to address the problem of how to correctly predict which tags will be used to describe a given textual object in such a system. 
 
-Since this problem touches upon many areas of scientific knowledge, such as machine learning, natural language processing (for textual resources), computer vision (similarly, for images and visual objects), recommender systems and so on, we would like to further limit our scope in a more precise manner.
+Since this problem touches upon many areas of scientific knowledge, such as machine learning, natural language processing (for textual resources), computer vision (similarly, for images and visual objects), recommender systems and so on, it is necessary to further limit our scope in a more precise manner.
 
 Firstly, one may create a distinction (according to commonly-cited sources such as \cite{wal_2005_broad_and_narrow}) between \textbf{broad} and \textbf{narrow folksonomies}. Broad folksonomies are those where not just a resource's owner but the whole community of users may assign tags to any one resource available on the system. Narrow folksonomies, on the other hand, only allow items to be tagged once, by the person who has first added that particular item to the system (i.e. that item's owner).
 
@@ -30,20 +33,21 @@ Broad folksonomies exhibit more diversity and richness of information, not to me
 
 Secondly, many authors \citep{illig_etal_2011,song_etal_2011} have made a distinction between \textbf{resource-centered} and \textbf{user-centered approaches}. This refers to the fact that some approaches take user information into account when performing tag prediction (user-centered) while others take a global view, giving the same predictions for every user (resource-centered).\footnote{Other authors, e.g. \cite{zhang_etal_2014} refer to these two types as \textit{personalized} and \textit{collective} tag recommendation.}
 
-We have chosen to focus on resource-centered approaches to predicting tags in broad folksonomies. This is due to the previous reasons and to the fact \citep{song_etal_2011} that user-centered approaches do not perform so well vis-a-vis resource-centered methods; the distribution of users and tags in broad folksonomies follow a power law and reusability of tags by each individual user is low. 
+We have chosen to focus on \textbf{resource-centered approaches to predicting tags in broad folksonomies}. This is due to the previous reasons and to the fact \citep{song_etal_2011} that user-centered approaches do not perform so well vis-a-vis resource-centered methods; the distribution of users and tags in broad folksonomies follow a power law and reusability of tags by each individual user is low. 
 
 This makes resource-centered approaches more robust as we generally have much more information about resources than about users. This is particularly true with textual resources and broad folksonomies. Also, resource-centered methods have the added benefit of being able to work in the absence of user information, the so called \textit{cold start} problem.
 
 Additionally, we would like to point out that most similar works in the literature do not take into account the number of times each tag has been assigned to a given resource. In other words, a \textit{binary} tag-assignment model or \textbf{BTAS} \citep{illig_etal_2011} is used, whereby a tag assignment is equated with the fact that \textit{there exists at least one} user who assigned that tag to that resource. We follow that convention in this article.
 
 \begin{definition}{BTAS}\footnote{Adapted from \cite{illig_etal_2011}.}
-
-Let $TAS$ be all tag assignments made by all users $u \in U$, using tags $t \in T$ for resources $r \in R$:
-\[ TAS = \{ (u,t,r) \in  U \times T \times R \ | \ \text{user} \ u \ \text{has assigned tag} \ t \ \text{to resource} \ r \} \]  
+\ednote{Você pode usar o comando \\text para fazer 
+texto dentro de fórmulas matemáticas. Do jeito que está agora parece T AS, e não TAS}
+Let $\text{TAS}$ be all tag assignments made by all users $u \in U$, using tags $t \in T$ for resources $r \in R$:
+\[ \text{TAS} = \{ (u,t,r) \in  U \times T \times R \ | \ \text{user} \ u \ \text{has assigned tag} \ t \ \text{to resource} \ r \} \]  
 
 $\mathbf{BTAS}$ abstracts the user dimension away, considering instead a \textit{binary} tag assignment $(t,r)$ the existence of \textit{any} user $u$ having assigned tag $t$ to resource $r$:
 
-\[ BTAS = \{(t,r) \in T \times R \ | \ \exists u \in U : (u,t,r) \in TAS \}  \]
+\[ \text{BTAS} = \{(t,r) \in T \times R \ | \ \exists u \in U : (u,t,r) \in \text{TAS} \}  \]
 
 \end{definition}
 

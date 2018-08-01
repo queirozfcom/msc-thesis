@@ -32,7 +32,35 @@ Based on the above tests, we have concluded that using a vocabulary with only 50
 
 \subsection{Metrics and Evaluation}
 
-For measuring the output of the selected methods, we have chosen to use \textbf{micro-averaged F1-score @k}.\footnote{More detailed information on this and other metrics and be found in \cite{sokolova_and_napalme_2009}.}
+Problems with multi-label data (the type we have in this work) can be approached in one of two ways \citep{tsoumakas_2010,illig_etal_2011}: as \textbf{multi-label classification} or \textbf{label ranking}. The first type produces models that output a partition of labels (relevant/non-relevant) for each example. Conversely, label ranking implies training models that output an \textit{ordering} of labels for each instance. 
+
+In this work, we have chosen to frame social tag prediction as a \textit{label ranking} problem. This follows standard practice in the literature but we also deem it more useful for real world tasks such as displaying a (finite) number of tag suggestions/predictions to users in an STS. In other words, the output of our classifiers will be a list of tags ranked in decreased order or relevance.
+
+A wide variety of evaluation metrics\footnote{For extended commentary on ranking metrics see \cite{sokolova_and_napalme_2009} and \cite{kishida_2005}.} is used in label ranking. Among the many articles reviewed for this dissertation, we cite the following as the most commonly-used metrics in this domain.
+
+\subsubsection{Average Precision and Mean Average Precision}
+
+Average Precision (AP) is a widely-used\footnote{See \cite{buckley_vorhees_2000} for a comprehensive study.} metric to measure the result of a single list of ranked labels or a list of ranked documents (in an information retrieval setting).
+
+In general terms, AP measures, up to a cutoff value $m$, the precision achieved considering all labels up to label $i$:  
+
+\begin{equation}
+AP_m =\frac{1}{m} \sum_{i=1}^{m} Precision@i \cdot \phi(i) \ ,
+\end{equation}
+
+where $Precision @i$ refers to the precision considering only the top $i$ labels; $\phi(t)$ is an indicator function whose value equals 1 if predicted label at rank $i$ is indeed a true label and 0 otherwise.
+
+Now, when one wants to calculate AP over a whole dataset (as is out case), one can average AP over all documents for which we have predicted labels. This brings us to Mean Average Precision (MAP), which is calculated as follows:
+
+\begin{equation}
+MAP_m = \frac{1}{|D|}\sum_{d \in D} AP_m(d) \ ,
+\end{equation}
+
+where $D$ is the set of documents for which labels are to be predicted.
+
+\subsubsection{Micro-Averaged F1 @k}
+
+Another very commonly-used metric, and the one that we have chosen to work with, is \textbf{micro-averaged F1-score @k}
 
 This measure was chosen due to the problem we wish to consider (namely, label ranking) and the way we want to average the results over a given dataset. In addition, this metric is commonly used in articles we have reviewed.
 
@@ -61,3 +89,33 @@ F_1\ @k = \frac{2 \cdot true \ positive\ @k}{2 \cdot true \ positive\ @k + false
 \end{equation}\\
 
 This gives a more complete view of how the classifier works at different precision/recall levels, and can be easily visualized via graphical charts.
+
+\subsection{Project Structure}
+
+\subsubsection{Workflow}
+
+{\color{red} TODO: Used jabref for keeping track of the referenced stuff}
+
+{\color{red} TODO: Used jupyter notebook, for EDA, training and visualization.}
+
+{\color{red} TODO: github for keeping track of changes and for collaboration}
+
+{\color{red} TODO: sharelatex for writing this thesis}
+
+\subsubsection{Frameworks and Libraries used}
+
+{\color{red} TODO: jupyter}
+
+{\color{red} TODO: python 3, numpy, scipy, sklearn, pandas, matplotlib}
+
+{\color{red} TODO: spark, aws}
+
+{\color{red} TODO: scrapy}
+
+\subsubsection{Code layout}
+
+{\color{red} TODO: Mention that the code is based off cookiecutter datascience, explain that it's supposed to help with reproducibility and help with keeping track of data versions. (need to cite them?)}
+
+{\color{red} TODO: utils, helpers, etc}
+
+{\color{red} TODO: throw in a graph 

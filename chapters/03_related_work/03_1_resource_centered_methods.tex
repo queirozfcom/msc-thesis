@@ -71,9 +71,10 @@ The chosen method was to train a binary classifier for each individual label, a 
 
 The authors claim good results with their model, while noting that they have restricted the tag vocabulary to those tags appearing in at least 50 documents in order to trim rare tags.
 
-\cite{bertin-mahieux_etal_2008} use a 2-level model to predict tags for audio pieces from a popular STS for songs, namely \textit{last.fm}\footnote{Reachable online via http://last.fm}.
+\citet{bertin-mahieux_etal_2008} use a 2-level model to predict tags for audio pieces from a popular STS for songs, namely \textit{last.fm}\footnote{Reachable online via http://last.fm}.
 
-For the first level, they use a technique called \texit{Filter Boosting}, which is an extension to \textit{Adaptive Boosting} meta-learning, better suited at online learning with large datasets. Using decision stumps (decision trees with a single level) as the underlying classifier, they train an individual classifier for each tag, which is also used to extract features to be used downstream.
+For the first level, they use a technique called \textit{Filter Boosting}, which is an extension to \textit{Adaptive Boosting} meta-learning, better suited at online learning with large datasets. 
+Using decision stumps (decision trees with a single level) as the underlying classifier, they train an individual classifier for each tag, which is also used to extract features to be used downstream.
 
 The second level is another Filter Boosting classifier trained on the output of the first one, possibly dropping features found to be irrelevant by the first level.
 
@@ -119,11 +120,11 @@ Tag-LDA is a method introduced by \cite{si_sun_2008}\footnote{Other authors such
 
 Since this is a supervised model aimed at predicting tags for unseen documents, the test time procedure is as follows: the most likely topic distribution for the query document are calculated, and the most likely tags for each of the topics are retrieved:
 
-$$
-p(t | d ) = \sum_{z \in Z_d} p(t|z) \cdot p(z|d)
+\begin{equation}
+p(t | d ) = \sum_{z \in Z_d} p(t|z) \cdot p(z|d) \ ,
+\end{equation}
 
-\textnormal{where} Z_d \ \textnormal{is the set of topics assigned to document} \ d \ \textnormal{at test time}
-$$\\
+where $Z_d$ is the set of topics assigned to document $d$ at test time.\\
 
 \cite{krestel_fankhauser_2010} also leverage LDA for predicting tags but they use a different approach. They use no content information but just a resource's previous tag assignments as its representation.\footnote{Note that this method assumes that a resource has been assigned at least one tag already.} In other words, instead of documents composed of terms, this approach models resources composed of tags.
 

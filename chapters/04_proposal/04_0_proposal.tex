@@ -6,10 +6,13 @@ Our proposal is twofold:
 
 This will provide insight into whether (if at all)  these techniques display difference in performance with respect with the characteristics of the datasets they are applied onto.
 
-\textbf{Secondly}, we would like to verify to what extent the technique introduced by \cite{shen_etal_2009}, namely \textit{Multi-Instance Multi-label Learning for Automatic Tag Recommendation} works when applied to kinds of textual features other than TF-IDF-weighted bag of words.
+\textbf{Secondly}, we would like to verify to what extent the technique introduced by \cite{shen_etal_2009}, namely \textit{Multi-Instance Multi-label Learning for Automatic Tag Recommendation} works when applied to other kinds of textual features other than TF-IDF-weighted bag of words.
 
 We propose this experiment because there are multiple techniques (mostly linear methods, such as Logistic Regression and SVM with a linear Kernel) that work well with bag of words due to their sparse nature \citep{hsu_etal_2010, li_etal_2015}, but may struggle with text representations where each document is represented not by a sparse feature vector but by a dense one instead.
 
 We would therefore like to investigate if and in what way the results obtained using multi-instance learning for sparse vectors extrapolate for dense and otherwise different text representations.
 
 One way to find that out is to try the aforementioned method with other representations for documents that have been used in the literature, which turn documents into \textit{dense} feature vectors. For example, \textbf{a)} using LDA topic probabilties, as suggested in the original article introducing this subject \citep{blei_etal_2003} and \textbf{b)} using the IDF-weighted average of word embeddings in a document as a representation for that document, as seen in \cite{zhao_etal_2015,correa_etal_2017}, among others. Using averaged word embeddings to construct higher-level embeddings has been established to work according to many recent articles \citep{wieting_etal_2016,arora_etal_2017}.
+
+\ednote{Aqui poderia entrar um diagrama de blocos mostrando os algoritmos e o que você vai trocar neles}
+
