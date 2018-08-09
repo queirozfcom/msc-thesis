@@ -31,7 +31,7 @@ Firstly, one may create a distinction (according to commonly-cited sources such 
 
 Broad folksonomies exhibit more diversity and richness of information, not to mention sheer scale, which makes them more amenable to analysis by data-driven methods, such as machine learning. More concretely, it has been suggested that a shared, global vocabulary of tags cannot be observed in narrow folksonomies \citep{schifanella_etal_2010}.
 
-Secondly, many authors \citep{illig_etal_2011,song_etal_2011} have made a distinction between \textbf{resource-centered} and \textbf{user-centered approaches}. This refers to the fact that some approaches take user information into account when performing tag prediction (user-centered) while others take a global view, giving the same predictions for every user (resource-centered).\footnote{Other authors, e.g. \cite{zhang_etal_2014} refer to these two types as \textit{personalized} and \textit{collective} tag recommendation.}
+Secondly, many authors \citep{illig_etal_2011,song_etal_2011} have made a distinction between \textbf{resource-centered} and \textbf{user-centered approaches}. This refers to the fact that some approaches take user information into account when performing tag prediction (user-centered) while others take a global view, giving the same predictions for every user (resource-centered).\footnote{Other authors, e.g. \cite{zhang_etal_2014,hu_etal_2010} refer to these two types as \textit{personalized} and \textit{collective} tag recommendation.}
 
 We have chosen to focus on \textbf{resource-centered approaches to predicting tags in broad folksonomies}. This is due to the previous reasons and to the fact \citep{song_etal_2011} that user-centered approaches do not perform so well vis-a-vis resource-centered methods; the distribution of users and tags in broad folksonomies follow a power law and reusability of tags by each individual user is low. 
 
@@ -40,8 +40,7 @@ This makes resource-centered approaches more robust as we generally have much mo
 Additionally, we would like to point out that most similar works in the literature do not take into account the number of times each tag has been assigned to a given resource. In other words, a \textit{binary} tag-assignment model or \textbf{BTAS} \citep{illig_etal_2011} is used, whereby a tag assignment is equated with the fact that \textit{there exists at least one} user who assigned that tag to that resource. We follow that convention in this article.
 
 \begin{definition}{BTAS}\footnote{Adapted from \cite{illig_etal_2011}.}
-\ednote{Você pode usar o comando \\text para fazer 
-texto dentro de fórmulas matemáticas. Do jeito que está agora parece T AS, e não TAS}
+
 Let $\text{TAS}$ be all tag assignments made by all users $u \in U$, using tags $t \in T$ for resources $r \in R$:
 \[ \text{TAS} = \{ (u,t,r) \in  U \times T \times R \ | \ \text{user} \ u \ \text{has assigned tag} \ t \ \text{to resource} \ r \} \]  
 

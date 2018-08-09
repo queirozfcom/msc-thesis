@@ -2,9 +2,26 @@
 
 Our proposal is twofold:
 
-\textbf{Firstly}, we would like to verify the performance of a group of tag prediction methods on two different datasets, which differ on key metrics such as average number of tags per resource, total number of tags, total number of resources, etc.
+\textbf{Firstly}, we would like to verify the performance of a group of social tag prediction methods on two different datasets, which differ on key metrics such as average number of tags per resource, total number of tags, total number of resources, etc.
 
 This will provide insight into whether (if at all)  these techniques display difference in performance with respect with the characteristics of the datasets they are applied onto.
+
+We consider this an important issue because the tag vocabulary and the folksonomy as a whole exhibits \textit{emergent semantics} \citep{cattuto_etal_2007,koerner_etal_2010} due to its collaborative nature. This means that the characteristics of such systems may vary in multiple, sometimes unpredictable ways.
+
+Among the characteristics we would like to investigate with respect to their effect on tag prediction are:
+
+\begin{itemize}
+    \item \textbf{Total number of resources}: The total number of resources in a dataset may affect the outcome of many prediction approaches, particularly those that need many samples to learn from.
+    
+    \item \textbf{Total number of unique tags}: A dataset where resources are tagged using a limited tag vocabulary will probably be more amenable to tag prediction, independently of the approach used.
+    
+    \item \textbf{Average number of tags per resource}: We suspect that the number of tags each resource has been assigned will have an impact on classification and ranking. This is because it may be easier to return valid tags if there are more to choose from (for a given resource).
+    
+    \item \textbf{Minimum and maximum number of tags per resource}: The fact that some datasets allow some resources to have either zero or an unlimited number of tags may affect the performance of ranking approaches that rely on some sort of calculated \textit{threshold} or cut-off value to define which tags are predicted.
+    
+    \item \textbf{Number of resources per tag}: The number of times each individual tag was assigned will probably be important because if there are too few examples some types of approaches may be unfeasible.
+
+\end{itemize}
 
 \textbf{Secondly}, we would like to verify to what extent the technique introduced by \cite{shen_etal_2009}, namely \textit{Multi-Instance Multi-label Learning for Automatic Tag Recommendation} works when applied to other kinds of textual features other than TF-IDF-weighted bag of words.
 
@@ -12,7 +29,14 @@ We propose this experiment because there are multiple techniques (mostly linear 
 
 We would therefore like to investigate if and in what way the results obtained using multi-instance learning for sparse vectors extrapolate for dense and otherwise different text representations.
 
-One way to find that out is to try the aforementioned method with other representations for documents that have been used in the literature, which turn documents into \textit{dense} feature vectors. For example, \textbf{a)} using LDA topic probabilties, as suggested in the original article introducing this subject \citep{blei_etal_2003} and \textbf{b)} using the IDF-weighted average of word embeddings in a document as a representation for that document, as seen in \cite{zhao_etal_2015,correa_etal_2017}, among others. Using averaged word embeddings to construct higher-level embeddings has been established to work according to many recent articles \citep{wieting_etal_2016,arora_etal_2017}.
+One way to find that out is to try the aforementioned method with other representations for documents that have been used in the literature, which turn documents into \textit{dense} feature vectors, as follows:
+
+\begin{itemize}
+    \item \textbf{LDA Topic Probabilities}: As suggested in the original article that introduced LDA \citep{blei_etal_2003}, one can use topic probabilities for each topic as a \textit{representation} for a document. This is in spite of the fact that LDA is mainly a non-supervised technique to extract topic densities from a text corpus.
+    
+    \item \textbf{IDF-weighted Average of Word Embeddings}: Word embeddings\footnote{One of the seminal articles for word embeddings is \cite{bengio_etal_2003}.} are fixed-dimension, dense representations for individual words. It has been recently suggested that one used the IDF-weighted average of word embeddings in a document as a representation for that document \citep{zhao_etal_2015,correa_etal_2017}. Furthermore, this strategy has been established to work reasonably well according to many authors \citep{wieting_etal_2016,arora_etal_2017}.
+    
+\end{itemize}
 
 \ednote{Aqui poderia entrar um diagrama de blocos mostrando os algoritmos e o que você vai trocar neles}
 

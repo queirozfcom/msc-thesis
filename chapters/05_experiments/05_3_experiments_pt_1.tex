@@ -11,7 +11,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/svm-tf-idf-delicious-20-frac.png}
-    \caption{Results of applying Binary Relevance + Linear SVM with TF-IDF features on the Delicious t-140 Dataset}
+    \caption{Results of applying Binary Relevance + Linear SVM with TF-IDF features on the Delicious t-140 Dataset (validation set scores shown)}
     \label{fig:ovr_svm_movielens}
 \end{figure}
 
@@ -20,7 +20,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/svm-tf-idf-movielens.png}
-    \caption{Results of applying Binary Relevance + Linear SVM with TF-IDF features on the Movielens Dataset}
+    \caption{Results of applying Binary Relevance + Linear SVM with TF-IDF features on the Movielens Dataset (validation set scores shown)}
     \label{fig:ovr_svm_movielens}
 \end{figure}
 
@@ -29,7 +29,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-1-compared-ovr-svm-bow.png}
-    \caption{Compared results}
+    \caption{Compared results (validation set scores)}
     \label{fig:compared_ovr_svm}
 \end{figure}
 
@@ -49,20 +49,34 @@ Since we only want to use this method as a baseline, we implemented the most bas
 
 \subsubsection{Results on dataset 1}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/knn-tfidf-delicious.png}
+    \caption{Applying $k$-NN on the Delicious Dataset, using TF-IDF weighted bag-of-words representation (validation set scores shown)}
+    \label{fig:knn__movielens}
+\end{figure}
 
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/knn-tfidf-movielens.png}
-    \caption{Applying $k$-NN on the Movielens Dataset, using TF-IDF weighted bag-of-words representation}
+    \caption{Applying $k$-NN on the Movielens Dataset, using TF-IDF weighted bag-of-words representation (validation set scores shown)}
     \label{fig:knn__movielens}
 \end{figure}
 
 \subsubsection{Discussion}
 
-Although the results were satisfactory, we would like to note that, surprisingly, using a \textit{weighted} variant did not increase performance on this task. In other words, weighing the contribution by the inverse of the distance to each neighbor did not increase the accuracy of the model.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-1-compared-knn-tfidf.png}
+    \caption{Compared results (validation set scores)}
+    \label{fig:compared_ovr_svm}
+\end{figure}
+
+Although the results were satisfactory, one can see that the difference in performance on both datasets is not as large as in the previous example. One reason for that may be that the large number of neighbours (found by model selection via grid search) may act as a regularizer, decreasing the variance on out-of-sample examples but at the cost of a higher bias.
+
+ We would like to note that, surprisingly, using a \textit{weighted} variant did not increase performance on this task. In other words, weighing the contribution by the inverse of the distance to each neighbor did not increase the accuracy of the model.
 
 \subsection{TF-IDF weighted Bag-of-words Features, Topic Distances}
 
@@ -153,5 +167,7 @@ As mentioned on the previous subsection, we will compare results between both da
 \subsection{Final Results and discussion}
 
 {\color{red} TODO: as expected, results in dataset 1 were better but some were better, maybe because it's the way the features are represented.}
+
+{\color{red} TODO: maybe it's because documents  in dataset 1 represent the resource itself (a webpage) while in dataset 2 the documents are a *description* of the resource, not the resource itself (resources are movies). In a way it's secondhand information.}
 
 {\color{red} TODO: plot all experiments on a single graph to help people compare them}
