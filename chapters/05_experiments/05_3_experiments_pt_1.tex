@@ -29,7 +29,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-1-compared-ovr-svm-bow.png}
-    \caption{Compared results (validation set scores)}
+    \caption{Binary Relevance, Linear SVM with TF-IDF features: Compared results (validation set scores)}
     \label{fig:compared_ovr_svm}
 \end{figure}
 
@@ -70,7 +70,7 @@ Since we only want to use this method as a baseline, we implemented the most bas
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-1-compared-knn-tfidf.png}
-    \caption{Compared results (validation set scores)}
+    \caption{$k$-NN with TF-IDF features: Compared results (validation set scores)}
     \label{fig:compared_ovr_svm}
 \end{figure}
 
@@ -84,41 +84,65 @@ In this approach, which has been suggested by \cite{choubey_2011},we first train
 
 \subsubsection{Results on dataset 1}
 
-{\color{red} TODO}
-
-\subsubsection{Results on Dataset 2}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/delicious-topic-distances.png}
+    \caption{Applying Topic Distances on the Delicious Dataset, with varying values for the choice of LDA components}
+    \label{fig:topic_distances_delicious}
+\end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/movielens-topic-distances.png}
     \caption{Applying Topic Distances on the Movielens Dataset, with varying values for the choice of LDA components}
-    \label{fig:ovr_svm_movielens}
+    \label{fig:topic_distances_movielens}
 \end{figure}
 
 \subsubsection{Discussion}
 
-{\color{red} TODO mention results are around the same the original author got}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-1-compared-topic-distances.png}
+    \caption{Topic Distances: Compared results (validation set scores). Best and worst results for each Dataset shown for comparison.}
+    \label{fig:compared_topic_distances}
+\end{figure}
+
+While the results were overall worse than previous classifiers, the overall pattern of dataset 1 (Delicious) performing better than dataset 2 was maintained. Notably, however, the difference is now much more pronounced (in relative terms), standing at up to 300\%.
+
+It is worth mentioning that the results achieved are close to what the original authors', lending credibility to the fact that this method performs very poorly overall, not just on specific datasets and/or specific conditions.
 
 \subsection{TF-IDF weighted Bag-of-words Features, Topic Words}
 
-In this approach, also suggested by \cite{choubey_2011}, one trains an LDA topic model on documents in the train set. At test time, the topic distribution for each query document is calculated with the trained model. Then, the most representative words \footnote{Only words that are in the actual tag vocabulary are used.} for the most representative topic are suggested as tags for the query document.
+In this approach, also suggested by \cite{choubey_2011}, one trains an LDA topic model on documents in the train set. At test time, the topic distribution for each query document is calculated with the trained model. Then, the most representative words\footnote{Only words that are in the actual tag vocabulary are used.} for the most representative topic are suggested as tags for the query document.
 
 \subsubsection{Results on dataset 1}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/delicious-topic-words.png}
+    \caption{Applying Topic Words on the Delicious Dataset, with varying values for the choice of LDA components (validation set scores shown)}
+    \label{fig:topic_words_delicious}
+\end{figure}
 
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/movielens-topic-words.png}
-    \caption{Applying Topic Words on the Movielens Dataset, with varying values for the choice of LDA components}
-    \label{fig:ovr_svm_movielens}
+    \caption{Applying Topic Words on the Movielens Dataset, with varying values for the choice of LDA components (validation set scores shown)}
+    \label{fig:topic_words_movielens}
 \end{figure}
 
 \subsubsection{Discussion}
 
-{\color{red} TODO mention results are around the same the original author got}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-1-compared-topic-words.png}
+    \caption{Topic Words: Compared results (validation set scores) using the best choice for the number of components.}
+    \label{fig:compared_topic_words}
+\end{figure}
+
+Once again, the results are not very good (in comparison to classifiers such as SVM, used previously). These, however, resemble results in the original source (\citep{choubey_2011}). Notably, there doesn't seem to be any consistent difference when one dataset is compared to another, or as $k$ grows. This may indicate that this method is not effectively learning much.
 
 \subsection{LDA Topic Probabilities, k-nearest Neighbours Classifier}\label{sub:lda_topics}
 
@@ -130,44 +154,98 @@ Using these topic probabilities as features, we can then proceed onto classifyin
 
 \subsubsection{Results on dataset 1}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/knn-lda-delicious.png}
+    \caption{k-Nearest Neighbor classifier on the Delicious dataset, using LDA topic probabilities as features (validation set scores shown).}
+    \label{fig:knn_lda_delicious}
+\end{figure}
 
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/knn-lda-movielens.png}
-    \caption{k-Nearest Neighbor classifier on the Movielens dataset, using LDA topic probabilities as features.}
+    \caption{k-Nearest Neighbor classifier on the Movielens dataset, using LDA topic probabilities as features (validation set scores shown).}
     \label{fig:knn_lda_movielens}
 \end{figure}
 
 \subsubsection{Discussion}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-1-compared-knn-lda.png}
+    \caption{$k$-NN using LDA features: Compared results (validation set scores).}
+    \label{fig:compared_knn_lda}
+\end{figure}
+
+It is interesting to note that, although only 50 components are used in this setup, we get 0.43 as F-1 score, compared with 0.45 when using $k$-NN with 500-dimensional bag-of-words features. In other words, we were able to reduce the dimensionality\footnote{Therefore also reducing the training and testing time, processing power needed, not to mention better generalization due to using a less complex model.} of the problem while losing just a bit of performance.  
+
+Interestingly, however, the compared results for the second dataset, namely, Movielens+IMDB, was markedly worse; 0.21 using LDA features vs 0.33 using bag-of-words features.
+
 \subsection{LDA Topic Probabilities, SVM classifier}
 
 As mentioned on the previous subsection, we will compare results between both datasets using LDA as a simple dimensionality reduction step on top of TF-IDF weighted bag-of-words features. We will use an SVM classifier, as suggested in the original LDA paper by \cite{blei_etal_2003}.
 
+However, since the features are now of a \textit{denser} nature, we will add other types of kernels to the hyperparameter search space, namely Radial Basis Function (RBF) and a also a polynomial kernel, in addition to the default linear kernel.
+
 \subsubsection{Results on dataset 1}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/svm-lda-delicious.png}
+    \caption{SVM classifier on the Delicious dataset, using LDA topic probabilities as features (validation set scores shown).}
+    \label{fig:svm_lda_delicious}
+\end{figure}
 
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/svm-lda-tf-idf-movielens.png}
-    \caption{SVM classifier on the Movielens dataset, using LDA topic probabilities as features.}
+    \caption{SVM classifier on the Movielens dataset, using LDA topic probabilities as features (validation set scores shown).}
     \label{fig:svm_lda_movielens}
 \end{figure}
 
 \subsubsection{Discussion}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-1-compared-svm-lda.png}
+    \caption{SVM using LDA features: Compared results (validation set scores).}
+    \label{fig:compared_svm_lda}
+\end{figure}
+
+Once again, we see that the difference in outcomes is large, of up to 80\%. This is surprising in light of the fact that the best results for each dataset (as obtained via grid search) used just 5 LDA components.
+
+In other words, we were able to provide good performance for this experiment setup using a mere 5 dimensional in place of the original 500 dimensions of the bag-of-words vectors. Note that an RBF kernel was used in this section.
 
 \subsection{Final Results and discussion}
 
-{\color{red} TODO: as expected, results in dataset 1 were better but some were better, maybe because it's the way the features are represented.}
+\begin{figure}[H]
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+    \includegraphics[width=0.8\textwidth]{chapters/05_experiments/images/full-comparison-dataset-1.png}
+    \caption{Full comparison of all techniques used on dataset 1: Delicious T-140.}
+    \label{fig:full_comparison_dataset_1}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+    \includegraphics[width=0.8\textwidth]{chapters/05_experiments/images/full-comparison-dataset-2.png}
+    \caption{Full comparison of all techniques used on dataset 2: Movielens+IMDB.}
+    \label{fig:full_comparison_dataset_2}
+    \end{subfigure}
+    \caption{Full comparison of all techniques used (validation set scores).}
+\end{figure}
+
+As we had initially expected, results in dataset 1 far outperform those in dataset 2, respectively, Delicious T-140 and Movielens+IMDB.
+
+{\color{red} TODO: a small table with the two datasets with their characteristics compared.}
+
+{\color{red} TODO: the experiments seem to confirm the intuitive explanation that X and Y affect the performance of classifiers, at least when measured with our metric of choice (micro-F1 at k)}
 
 {\color{red} TODO: maybe it's because documents  in dataset 1 represent the resource itself (a webpage) while in dataset 2 the documents are a *description* of the resource, not the resource itself (resources are movies). In a way it's secondhand information.}
+
+{\color{red} TODO: in addition to the above, the second dataset is a mixture of two datasets, namely movielens for the tags and imdb for the text. This may have had an additional effect }
 
 {\color{red} TODO: plot all experiments on a single graph to help people compare them}
