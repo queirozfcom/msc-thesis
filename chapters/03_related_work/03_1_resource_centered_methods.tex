@@ -6,7 +6,7 @@ We note that, although our problem domain only includes textual documents, we ch
 
 \subsection{Association Rule Mining}
 
-{\color{red} TODO: introduction to association rule mining}
+\textit{Association rule mining}\footnote{Alternatively, \textit{Association rule learning}.} refer to methods whereby one extracts rules and regularities from event databases \citep{agrawal_etal_93}. For example, the rule $\{\textnormal{Beer,Bread}\} \rightarrow \{\textnormal{Milk}\}$, when referring to a database of supermarket items, may indicate that Beer and Bread jointly \textit{co-occur} very frequently with Milk, suggesting a possible relationship between the two.
 
 In one of the earlier papers on social tag prediction, HEYMANN et al. \citeyearpar{heymann_etal_2008} have applied \textit{association rules} of the form $X \rightarrow Y$ (where $X$ and $Y$ are tagsets) in order to expand the set of tags given to a resource. Using techniques such as \textit{Market Basket Analysis}, the authors derive association rules of length 4 and below, using a certain level of support\footnote{A rule's \textit{support} equals the number of examples where both $X$ and $Y$ are present.} as threshold to remove overly noisy rules.
 
@@ -48,14 +48,12 @@ In conclusion, two common themes in such \textit{content-based} tag propagation 
 
 In this subsection, we will talk about methods which use information \textit{about} the resource (other than its contents encoded as features) to build representations for these resources. These representations are then used in neighbor-based algorithms for actual classification.
 
-{\color{red} TODO: can I find some OTHER guy who just represented each resource as a vector over tags and did something simple with it?}
-
 \cite{auyeung_etal_2009} propose a slightly different approach. They encode each resource as a vector over the space of the full tag vocabulary, so that it resembles a bag-of-words approach, using tags instead of terms in the document. Similarity between resources is then calculated via simple measures like cosine similarity.
 
 The authors report above-benchmark performance when using the described approach to predict tags for unlabelled examples. Metrics used to for gauging performance include Precision@$k$ and NDCG.
 
 
-\subsection{Multi-label Classification/Ranking}
+\subsection{Multi-label Classification/Ranking}\label{subsection:classification_vs_ranking}
 
 Since resources in an STS can be assigned multiple tags, it is natural to model this problem as a \textit{Multi-label Classification} (MLC) problem.
 
@@ -63,7 +61,12 @@ Multi-label learning\footnote{Not to be confused with \textit{multi-class} class
 
 A more particular approach, generally called \textit{Multi-label Ranking}, refers (\cite{illig_etal_2011}) to problems where not only do instances have multiple labels associated with them, but every label also has a \textit{rank}; in other words, each label assignment also carries a weight, so that labels assigned to a particular example may be ranked with respect to the weight each label has. This is in contrast with regular multi-label classification, where labels are represented with a binary vector, making no distinction between labels.\footnote{Although our own method is of the multi-label ranking type, we find it worthwhile to list regular MLC method due to how similar both are.}
 
-{\color{red} TODO: ADD example image here with an instance with binary labels and another one with ranked labels}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/03_related_work/images/label-classification-vs-label-ranking.png}}
+    \caption{When each label prediction is given a score, we can choose a threshold $k$ and return only the top $k$ labels, as ranked by score.}
+    \label{fig:classification_vs_ranking}
+\end{figure}
 
 In \cite{katakis_etal_2008}, the authors have applied multi-label classification to the task of classifying HTML pages and journal abstracts into tags.
 

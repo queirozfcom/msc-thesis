@@ -1,10 +1,28 @@
 \chapter{Related Work}\label{chap:related_work}
 
-In this section, we will present general approaches to tag prediction, with a special focus on resource-based methods for broad folksonomies, that being our problem scope.
-
 \section{Introduction}
 
-{\color{red} TODO: short intro here, talk about resource-centered, user-centered, cite ties to recommender systems, multi label classification and multi label ranking.}
+In this section, we will present general approaches to tag prediction, with a special focus on resource-based methods for broad folksonomies, that being our problem scope.
+
+After reviewing the literature, we chose to divide these methods in categories for easier analysis:
+
+\begin{itemize}
+
+    \item \textbf{Association Rule Mining}: Methods that leverage the learning of data-based co-occurrence rules in the datasets.
+    
+    \item \textbf{Content-based Tag Propagation}: Methods that learn a representation of each resource based on their contents and use neighbour-based techniques to find similar points.
+    
+    \item \textbf{Resource-based tag propagation}: Similar to the above, but using other information to build representations for each resource.
+    
+    \item \textbf{Multi-label Classification/Ranking}: Methods based upon training multi-label classification algorithms, ranked or otherwise.
+    
+    \item \textbf{Topic Modelling/Tensor Factorization}: Methods based on finding a matrix and/or tensor based representation for resources and tags, and then applying factorization methods on those.
+    
+    \item \textbf{Graph-based}: Methods which model folksonomies as graphs and leverage graph-theoretic algorithms to predict tags for resources.
+    
+    \item \textbf{Other}: Other methods not in the previous categories.
+
+\end{itemize}
 
 As related to how authors name their particular approaches, one should be careful inasmuch as there is no apparent consensus as to what constitutes a \textit{recommendation} approach vis-a-vis a \textit{prediction} approach with respect to STSs. 
 

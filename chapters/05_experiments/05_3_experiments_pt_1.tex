@@ -1,10 +1,12 @@
 \section{Experiments for Proposal 1}\label{section:experiment_part_1}
 
-{\color{red} TODO: short introduction}
+In this section we present the results of experiments we conducted in order to empirically ascertain the difference in performance of several multi-label ranking methods, applied to social tag prediction, as detailed in Chapter \ref{chap:proposal}.
 
 \subsection{TF-IDF weighted Bag-of-words Features, Binary Relevance + Linear SVM Classifier}
 
-{\color{red} TODO: short introduction, add one or two examples of people using this.}
+In this experiment, we apply the commonly-used \textit{Binary Relevance}\footnote{As previously noted, this method is also called \textit{One-vs-Rest} because one classifier is trained for each separate category, or label.} meta-estimator \citep{tsoumakas_katakis_2007} using a linear SVM classifier as underlying model.
+
+This is a commonly-used technique for social tag prediction, as seen in \cite{chen_etal_2008, goh_etal_2008,illig_etal_2011,tao_yao_2016} among others.
 
 \subsubsection{Results on Dataset 1}
 
@@ -142,7 +144,7 @@ In this approach, also suggested by \cite{choubey_2011}, one trains an LDA topic
     \label{fig:compared_topic_words}
 \end{figure}
 
-Once again, the results are not very good (in comparison to classifiers such as SVM, used previously). These, however, resemble results in the original source (\citep{choubey_2011}). Notably, there doesn't seem to be any consistent difference when one dataset is compared to another, or as $k$ grows. This may indicate that this method is not effectively learning much.
+Once again, the results are not very good (in comparison to classifiers such as SVM, used previously). These, however, resemble results in the original source \citep{choubey_2011}. Notably, there doesn't seem to be any consistent difference when one dataset is compared to another, or as $k$ grows. This may indicate that this method is not effectively learning much.
 
 \subsection{LDA Topic Probabilities, k-nearest Neighbours Classifier}\label{sub:lda_topics}
 
@@ -150,7 +152,7 @@ Although Latent Dirichlet Allocation (LDA) \citep{blei_etal_2003} was originally
 
 In other words, LDA can be used as a form of dimensionality reduction to reduce the size of feature vectors\footnote{Assuming an original bag-of-words representation without trimming the number of words used.} from $V$ to $k$, respectively the vocabulary size and the number of components in the LDA model.
 
-Using these topic probabilities as features, we can then proceed onto classifying the documents using any classifier we wish. We have chose to use two classifier for this task: \textbf{a)} a simple $k$-nearest Neighours Classifier so as to enable comparison between using LDA features and using bag-of-words features and \textbf{b)} (in the next subsection) an SVM classifier, as suggested in the original LDA article.
+Using these topic probabilities as features, we can then proceed onto classifying the documents using any classifier we wish. We have chose to use two classifier for this task: \textbf{a)} a simple $k$-nearest Neighbours Classifier so as to enable comparison between using LDA features and using bag-of-words features and \textbf{b)} (in the next subsection) an SVM classifier, as suggested in the original LDA article.
 
 \subsubsection{Results on dataset 1}
 
@@ -238,14 +240,41 @@ In other words, we were able to provide good performance for this experiment set
     \caption{Full comparison of all techniques used (validation set scores).}
 \end{figure}
 
-As we had initially expected, results in dataset 1 far outperform those in dataset 2, respectively, Delicious T-140 and Movielens+IMDB.
+As we had initially expected, results in dataset 1 far outperform those in dataset 2, Delicious T-140 and Movielens+IMDB respectively.
 
-{\color{red} TODO: a small table with the two datasets with their characteristics compared.}
+\begin{table}[H]
+\centering
+\caption{Compared dataset statistics}
+\begin{tabular}{|c|c|c|}
+\hline
+\specialcell{} & \textbf{Delicious T-140} & \textbf{Movielens+IMDB} \\
+\hline
+\specialcell{Total number of Resources} & 147,716 & 6,710 \\
+\hline
+% \specialcell{Total number of unique tags} & \,\,\, 2,138 \\
+% \hline
+% \specialcell{Average number of tags per resource} & \,\,\, 12.21 \\
+% \hline
+% \specialcell{Minimum number of tags per resource} & \,\,\, 1 \\
+% \hline
+% \specialcell{Maximum number of tags per resource} & \,\,\, 189 \\
+% \hline
+% \specialcell{Average number of resources per tag} & \,\,\, 38.33 \\
+% \hline
+% \specialcell{Minimum number of resources per tag} & \,\,\, 10 \\
+% \hline
+% \specialcell{Maximum number of resources per tag} & \,\,\, 854\\
+% \hline
+\end{tabular}
+\label{tab:dataset_statistics_delicious}
+\end{table}
 
-{\color{red} TODO: the experiments seem to confirm the intuitive explanation that X and Y affect the performance of classifiers, at least when measured with our metric of choice (micro-F1 at k)}
+{\color{red} TODO: finish table}
 
-{\color{red} TODO: maybe it's because documents  in dataset 1 represent the resource itself (a webpage) while in dataset 2 the documents are a *description* of the resource, not the resource itself (resources are movies). In a way it's secondhand information.}
+The experiments seem to confirm the intuitive explanation that dataset characteristics do indeed affect the performance of classifiers, at least when measured with our metric of choice (micro-F1 @k).
 
-{\color{red} TODO: in addition to the above, the second dataset is a mixture of two datasets, namely movielens for the tags and imdb for the text. This may have had an additional effect }
+Intuitively, we could claim that the results were better in dataset 1 because number of resources is much larger (there are many more examples to learn from), the tag vocabulary is smaller (there are less tags to choose from at each prediction) and the number of tags assigned to each resource is capped at 25.
 
-{\color{red} TODO: plot all experiments on a single graph to help people compare them}
+Another possible explanation is that documents in dataset 1 represent the resource itself (a webpage) while in dataset 2 the documents are but a \textit{description} of the resource, not the resource itself (resources are movies). In a way, dataset 2 contains \textit{secondhand information} about the resource.
+
+In addition to the above, dataset 2 is a mixture of two different sources\footnote{See subsection \ref{subsec:dataset_2} for a detailed explanation.}, namely Movielens for the tags and IMDB for the movie plot summary. This may have had an additional effect on lowering the performance of the classifiers since there is a potential mismatch between the two sources.

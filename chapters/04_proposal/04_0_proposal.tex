@@ -1,16 +1,21 @@
 \chapter{Proposal}\label{chap:proposal}
 
+Initially, our proposal was to analyze multiple multi-label classification algorithms and verify how they perform when applied to the task of predicting social tags in broad folksonomies. We chose multi-label classification techniques because they are by far the most common method applied to social tag prediction (as evidenced in our literature review) and also because there is already a large body of work dedicated to this particular form of machine learning\footnote{See \cite{tsoumakas_katakis_2007} for a comprehensive overview of the subject.}
+
+However, after reading many articles where this particular type of technique is applied to social tag prediction, we noticed that most use, in fact, a \textit{label ranking} approach, which is very similar to multi-label classification, but where continuous, rather than real-valued, scores are assigned to each label.\footnote{More about the relationship between multi-label classification and label ranking on section \ref{subsection:classification_vs_ranking}}
+
+This has caused us to slightly modify our proposal; we changed our focus from multi-label classification to multi-label ranking. This has enabled us to compare methods that are actually in use in the literature and see how these results fare in comparison to those reported by other authors.
+
+Our final proposal is twofold:
+
+\textbf{Firstly}, we would like to verify the performance of a group of social tag prediction methods. We will use techniques that are widely used 
 
 
-Our proposal is twofold:
-
-\textbf{Firstly}, we would like to verify the performance of a group of social tag prediction methods on two different datasets, which differ on key metrics such as average number of tags per resource, total number of tags, total number of resources, etc.
-
-This will provide insight into whether (if at all)  these techniques display difference in performance with respect with the characteristics of the datasets they are applied onto.
+Additionally, we intend test these on two different datasets, which differ on key metrics such as average number of tags per resource, total number of tags, total number of resources, etc. This will enable us to compare the performance of these methods under different settings. If we had used a single dataset to experiment with, we could risk choosing one that unfairly benefits one method to the detriment of others. In other words, this is a way to reduce any possible bias that could result from using a single dataset to compare these methods.
 
 We consider this an important issue because the tag vocabulary and the folksonomy as a whole exhibits \textit{emergent semantics} \citep{cattuto_etal_2007,koerner_etal_2010} due to its collaborative nature. This means that the characteristics of such systems may vary in multiple, sometimes unpredictable ways.
 
-Among the characteristics we would like to investigate with respect to their effect on tag prediction are:
+Among the characteristics datasets may differ in, we can count:
 
 \begin{itemize}
     \item \textbf{Total number of resources}: The total number of resources in a dataset may affect the outcome of many prediction approaches, particularly those that need many samples to learn from.
@@ -21,7 +26,7 @@ Among the characteristics we would like to investigate with respect to their eff
     
     \item \textbf{Minimum and maximum number of tags per resource}: The fact that some datasets allow some resources to have either zero or an unlimited number of tags may affect the performance of ranking approaches that rely on some sort of calculated \textit{threshold} or cut-off value to define which tags are predicted.
     
-    \item \textbf{Number of resources per tag}: The number of times each individual tag was assigned will probably be important because if there are too few examples some types of approaches may be unfeasible.
+    \item \textbf{Number of resources per tag}: The number of times each individual tag was assigned will probably be important because if there are too few examples some approaches may be unfeasible.
 
 \end{itemize}
 
@@ -40,5 +45,5 @@ One way to find that out is to try the aforementioned method with other represen
     
 \end{itemize}
 
-\ednote{Aqui poderia entrar um diagrama de blocos mostrando os algoritmos e o que você vai trocar neles}
+For the same reasons as in proposal 1, we will conduct these experiments on two datasets with different characteristics, to avoid biased results.
 
