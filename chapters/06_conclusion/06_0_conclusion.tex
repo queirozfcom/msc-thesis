@@ -1,21 +1,29 @@
 \chapter{Conclusion and Future Work}\label{chap: conclusion}
 
+In this chapter, we conclude the findings from the experiments and link them back to our original proposals and problem scope.
 
 \section{Conclusion}
 
-{\color{red} TODO: short introduction}
+Overall, we consider the experiments to have been very informative in helping us answer the questions detailed in the problem scope, and planned in the proposals. Next, we give more detailed insights on both proposals.
 
 \subsection{Proposal 1}
 
-{\color{red} TODO: summarize results from the section}
+As seen in subsection \ref{sub:final_results_prop_1}, we verified that all methods perform consistently better on Dataset 1 as compared with Dataset 2. This may indicate that the first dataset, namely Delicious T-140 is \textit{inherently} easier to predict tags for. Intuitively, this is probably related to the dataset characteristics outlined on tables \ref{tab:dataset_statistics_delicious} and \ref{tab:dataset_statistics_movielens}.
+
+Other factors may have played a role too: as mentioned before, dataset 1 is a \textit{firsthand} dataset, in which we deal with the resources themselves, namely HTML source code for web pages. Dataset 2, on the other hand, contains textual \textit{descriptions} of movies, not movies themselves (in which case we would need visual and/or audio features instead). When someone describes data such as video using text, some information will invariably be lost \textit{in translation}.
+
+In addition, we would also like to draw attention to the fact that the simplest algorithm, namely Binary Relevance with TF-IDF features and Linear SVM classifier yielded the best results for both datasets. This reminds us that, in the absence of more specific, semantic information about the problem domain, simple solutions which carry little to no assumptions about the data may be the safest approaches.
 
 \subsection{Proposal 2}
 
-{\color{red} TODO: summarize results from the section}
+Once more, as we have already briefly explained, the MIMLSVM algorithm \citep{shen_etal_2009} doesn indeed seem to generalize for other, non-sparse text representions; notably, using LDA topic probabilities as features (while keeping all other hypeparameters constant) seemed to yield a slight increase in prediction performance, at least for Dataset 1. The algorithm does not seem to fare as well with IDF-weighted bag-of-embeddings features, however, which has cause decreased performance across both datasets.
+
+As in experiments for Proposal 1, the nature of the text in both datasets may have also played a role here; the segmentation procedure, namely \textit{TextTiling}, is particularly sensitive to punctuation and other markers of prose text; applying this on HTML text (albeit \textit{cleaned} HTML), may be stretching some assumptions this procedure was built for.
+
 
 \section{Future Work}
 
-{\color{red} TODO: short introduction}
+Although we were able to verify some aspects of the problems addressed, there remain many other areas which may be worthy of research.
 
 \subsection{Alternative similarity metrics for clustering multi-instances}
 
@@ -26,4 +34,10 @@ Other distance metrics are available for comparing bags of vectors; \cite{hutten
 \subsection{Alternative clustering algorithms}
 
 While the $k$-medoids algorithm was used in the proposed approach, it remains to be seen whether other similar clustering algorithms could yield better results than those shown. In particular, similar, \textit{centroid-based} clustering algorithms include $k$-means clustering \citep{macqueen_1967}, $k$-medians clustering \citep{jain_dubes_1988} and $k$-means++ \citep{arthur_vassilvitskii_2007}.
+
+\subsection{Other classifiers for MIMLSVM}
+
+The choice of SVM for the classifier part of MIMLSVM seems to be reminiscent from the original paper by \cite{zhou_zhang_2006}. The adaptation to text data introduced by \cite{shen_etal_2009} followed the example of the original implementation, but no reason was given for using SVM over any other classifier.
+
+In particular for different types of features such as embedded representations, neural networks would be a natural choice, which could enhance results and make predictions more accurate.
 

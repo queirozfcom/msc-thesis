@@ -70,22 +70,38 @@ The objective of the experiments in this section is to ascertain whether (if at 
 
 The following is the original version of the MIMLSVM algorithm, i.e. using TF-IDF weighted Bag-of-words features. Values for all hyperparameters were found via grid search on a sample of the full dataset.
 
-\subsubsection{Results on dataset 1}
+\subsubsection{Results on Dataset 1}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/delicious-mimlsvm-tfidf.png}
+    \caption{MIMLSVM classifier applied on the Delicious dataset, using TF-IDF weighted bag-of-words features  (validation set scores shown).}
+    \label{fig:mimlsvm_delicious_tfidf}
+\end{figure}
 
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/mimlsvm-tf-idf-movielens.png}
-    \caption{MIMLSVM classifier applied on the Movielens dataset, using TF-IDF weighted bag-of-words features.}
-    \label{fig:knn_lda_movielens}
+    \caption{MIMLSVM classifier applied on the Movielens dataset, using TF-IDF weighted bag-of-words features (validation set scores shown).}
+    \label{fig:mimlsvm_movielens_tfidf}
 \end{figure}
 
 \subsubsection{Discussion}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-2-compared-1.png}
+    \caption{MIMLSVM with TF-IDF features: Compared results (validation set scores)}
+    \label{fig:compared_mimlsvm_tfidf}
+\end{figure}
+
+Although results for Dataset 1 continue to be better than dataset 2, we notice an interesting development: the difference in scores appears to be smaller than for previous classifiers (i.e. in part 1). We suspect this may be due to the fact that \textit{TextTiling} works by identifying \textit{topics} to split the documents by. 
+
+Dataset 1 is fully composed of actual sentences and phrases, while dataset 2 is made up of HTML source code (albeit with things like tags and javscript code removed). This may have caused the MIMLSVM technique to be better able to extract segment information from the former and not the latter.
+
+Other than that, the results are comparable to those obtained by the original authors.
 
 \subsection{MIMLSVM with LDA Topic Probabilities as Features}
 
@@ -95,9 +111,14 @@ As mentioned before in section \ref{sub:lda_topics}, the original LDA article it
 
 Each document is therefore represented as a feature vector of size $D$, where each $d_i \in D$ represents how much topic $i$ is present is a document, as per \cite{blei_etal_2003}. Since this vector is a dense vector, it serves out purpose of experimenting on using MIMLSVM on dense document representations.
 
-\subsubsection{Results on dataset 1}
+\subsubsection{Results on Dataset 1}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/delicious-mimlsvm-lda.png}
+    \caption{MIMLSVM classifier applied on the Delicious dataset, using LDA topic probabilities as features. (validation set scores shown)}
+    \label{fig:mimlsvm_delicious_lda}
+\end{figure}
 
 \subsubsection{Results on Dataset 2}
 
@@ -110,29 +131,68 @@ Each document is therefore represented as a feature vector of size $D$, where ea
 
 \subsubsection{Discussion}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-2-compared-2.png}
+    \caption{MIMLSVM with LDA features: Compared results (validation set scores)}
+    \label{fig:compared_mimlsvm_lda}
+\end{figure}
+
+This is the first experiment where we test out our original idea as detailed in proposal 2, namely whether MIMLSVM can generalize with non-sparse, i.e. dense, features.
+
+The results seem to be only very slightly superior to those in the previous experiment using regular bag-of-words features. Initially, it doesn't seem to be the case that using more informative features, with less dimensions makes the prediction task much easier.\footnote{Note that hyperparameters and other choices such as SVM kernels and distance functions were kept the same so as to enable a fair comparison.}
 
 \subsection{MIMLSVM with IDF-weighted Bag-of-embeddings Features}
 
 \subsubsection{Results on dataset 1}
 
-{\color{red} TODO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/delicious-mimlsvm-embeddings.png}
+    \caption{MIMLSVM classifier applied on the Delicious dataset, using IDF weighted bag-of-embeddings features (validation set scores shown).}
+    \label{fig:movielens_mimlsvm_embeddings}
+\end{figure}
 
 \subsubsection{Results on Dataset 2}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=7cm]{chapters/05_experiments/images/movielens-mimlsvm-embeddings.png}
-    \caption{MIMLSVM classifier applied on the Movielens dataset, using TF-IDF weighted bag-of-embeddings features.}
-    \label{fig:knn_lda_movielens}
+    \caption{MIMLSVM classifier applied on the Movielens dataset, using IDF weighted bag-of-embeddings features (validation set scores shown).}
+    \label{fig:movielens_mimlsvm_embeddings}
 \end{figure}
 
 \subsubsection{Discussion}
 
-\subsection{Final Results and discussion}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{chapters/05_experiments/images/proposal-2-compared-3.png}
+    \caption{MIMLSVM with IDF weighted bag-of-embedding features: Compared results (validation set scores)}
+    \label{fig:compared_mimlsvm_lda}
+\end{figure}
 
-{\color{red} TODO: it looks like the results using dense features are worse.}
+In this case, the switch to IDF-weighted bag-of-embeddings decreased classifier accuracy by a significant amount.
 
+\subsection{Final Results and discussion}\label{sub:final_results_prop_2}
 
+\begin{figure}[H]
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+    \includegraphics[width=0.8\textwidth]{chapters/05_experiments/images/proposal-2-compared-delicious.png}
+    \caption{Full comparison of all MIMLSVM variants used on dataset 1: Delicious T-140.}
+    \label{fig:full_comparison_dataset_1}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+    \includegraphics[width=0.8\textwidth]{chapters/05_experiments/images/proposal-2-compared-movielens.png}
+    \caption{Full comparison of all MIMLSVM variants used on dataset 2: Moivelens+IMDB.}
+    \label{fig:full_comparison_dataset_2}
+    \end{subfigure}
+    \caption{Full comparison of all techniques used for proposal 2 (validation set scores).}
+\end{figure}
 
-{\color{red} TODO: plot 2 graphs side by side: all 3 experiments for dataset 1  and then experiments for dataset 2}
+After conducting these experiments, it does look like the MIMLSVM algorithm can indeed be used for dense text representations, in both \textit{well-structured} text with phrases and sentences as in dataset 1 and in looser, more unstructured text as in dataset 2.
+
+Apparently the variant using LDA topic probabilities as features had a small but noticeable advantage over other cases for dataset 1, but not for dataset 2.
+
+On the other hand, the variant using IDF-weighted bag-of-embeddings performed clearly worse in both cases.
