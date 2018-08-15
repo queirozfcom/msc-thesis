@@ -92,30 +92,57 @@ This gives a more complete view of how the classifier works at different precisi
 
 \subsection{Project Structure}
 
-\subsubsection{Workflow}
-
-{\color{red} TODO: Used jabref for keeping track of the referenced stuff}
-
-{\color{red} TODO: Used jupyter notebook, for EDA, training and visualization.}
-
-{\color{red} TODO: github for keeping track of changes and for collaboration}
-
-{\color{red} TODO: sharelatex for writing this thesis}
+In the following subsection, we will briefly describe the actual software project created to fulfill the objectives described in earlier chapters.
 
 \subsubsection{Frameworks and Libraries used}
 
-{\color{red} TODO: jupyter}
+We have chosen to use the Python programming language, due to its ease of use as well as the widespread availability of scientific libraries.
 
-{\color{red} TODO: python 3, numpy, scipy, sklearn, pandas, matplotlib}
+For exploratory data analysis and training all models, we have used tools such as \textit{Numpy}, \textit{Scipy}, \textit{Pandas}, \textit{Scikit-learn} and \textit{Matplotlib}. All of these were used on top of \textit{Jupyter} notebooks, to make all process easiily viewable and auditable.
 
-{\color{red} TODO: spark, aws}
+For text preprocessing, we have used a parallel processing framework called \textit{Apache Spark}, due to the size of the datasets. All workloads were executed on top of Amazon Web Services (AWS) infrastructure.
 
-{\color{red} TODO: scrapy}
+For crawling the IMDB website we have used a tool called \textit{Scrapy}.
+
+Finally, for training and using word embeddings we have used the \textit{Gensim} framework for topic modelling.
+
+All code for the experiments is available under https://github.com/queirozfcom/auto-tagger.
 
 \subsubsection{Code layout}
 
-{\color{red} TODO: Mention that the code is based off cookiecutter datascience, explain that it's supposed to help with reproducibility and help with keeping track of data versions. (need to cite them?)}
+The project as a whole was based off a project template called \textit{Cookiecutter Datascience}\footnote{Available online at https://drivendata.github.io/cookiecutter-data-science/} which is recommended for aiding reproducibility in data science projects.
 
-{\color{red} TODO: utils, helpers, etc}
+The project is organized as follows:
+\begin{frame}
 
-{\color{red} TODO: throw in a graph }
+\begin{lstlisting}[style=tree]
+social-tags/
+  ├─ data/                 <-- saved data
+  │     ├── external
+  │     ├── interim
+  │     ├── processed
+  │     └── raw
+  │
+  ├── models/              <-- trained models 
+  │
+  ├── notebooks/           <-- all code for training all models
+  │     ├── helper-scripts/
+  │     ├── delicious-t140/
+  │     └── movielens-imdb/
+  │
+  ├── scripts/             <-- other scripts
+  │
+  ├── src/                 <-- utils and helper code
+  │     ├── data/          <-- code for building the datasets      
+  │     ├── features/      <-- code for extracting features
+  │     ├── helpers/       <-- helper code
+  │     └── utils/         <-- helper code that's fit for reuse
+  │
+  └── systematic-search/   <-- evidence of collected material
+        └── 2017-08-14
+            ├── ieee-explore
+            ├── sciencedirect
+            └── scopus
+\end{lstlisting}
+
+\end{frame}  

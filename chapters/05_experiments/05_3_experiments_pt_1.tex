@@ -244,37 +244,35 @@ As we had initially expected, results in dataset 1 far outperform those in datas
 
 \begin{table}[H]
 \centering
-\caption{Compared dataset statistics}
+\caption{Compared dataset statistics (after pruning and preprocessing)}
 \begin{tabular}{|c|c|c|}
 \hline
-\specialcell{} & \textbf{Delicious T-140} & \textbf{Movielens+IMDB} \\
+\specialcell{} & \textbf{Dataset 1} & \textbf{Dataset 2} \\
 \hline
-\specialcell{Total number of Resources} & 147,716 & 6,710 \\
+\specialcell{Total number of resources} & 147,716 & 6,710 \\
 \hline
-% \specialcell{Total number of unique tags} & \,\,\, 2,138 \\
-% \hline
-% \specialcell{Average number of tags per resource} & \,\,\, 12.21 \\
-% \hline
-% \specialcell{Minimum number of tags per resource} & \,\,\, 1 \\
-% \hline
-% \specialcell{Maximum number of tags per resource} & \,\,\, 189 \\
-% \hline
-% \specialcell{Average number of resources per tag} & \,\,\, 38.33 \\
-% \hline
-% \specialcell{Minimum number of resources per tag} & \,\,\, 10 \\
-% \hline
-% \specialcell{Maximum number of resources per tag} & \,\,\, 854\\
-% \hline
+\specialcell{Total number of unique tags} & 9,184 & 2,138 \\
+\hline
+\specialcell{Average number of unique tags per resource} & 13.12 & 12.21 \\
+\hline
+\specialcell{Minimum number of unique tags per resource} & 1 & 1 \\
+\hline
+\specialcell{Maximum number of unique tags per resource} & 25 & 189 \\
+\hline
+\specialcell{Average number of resources per tag} & 205.24 & 38.33 \\
+\hline
+\specialcell{Minimum number of resources per tag} & 10 & 10 \\
+\hline
+\specialcell{Maximum number of resources per tag} & 26,603 & 854 \\
+\hline
 \end{tabular}
 \label{tab:dataset_statistics_delicious}
 \end{table}
 
-{\color{red} TODO: finish table}
-
-The experiments seem to confirm the intuitive explanation that dataset characteristics do indeed affect the performance of classifiers, at least when measured with our metric of choice (micro-F1 @k).
+The experiments seem to confirm the intuitive explanation that dataset characteristics (as seen on the table above) do indeed affect the performance of classifiers, at least when measured with our metric of choice (micro-F1 @k).
 
 Intuitively, we could claim that the results were better in dataset 1 because number of resources is much larger (there are many more examples to learn from), the tag vocabulary is smaller (there are less tags to choose from at each prediction) and the number of tags assigned to each resource is capped at 25.
 
 Another possible explanation is that documents in dataset 1 represent the resource itself (a webpage) while in dataset 2 the documents are but a \textit{description} of the resource, not the resource itself (resources are movies). In a way, dataset 2 contains \textit{secondhand information} about the resource.
 
-In addition to the above, dataset 2 is a mixture of two different sources\footnote{See subsection \ref{subsec:dataset_2} for a detailed explanation.}, namely Movielens for the tags and IMDB for the movie plot summary. This may have had an additional effect on lowering the performance of the classifiers since there is a potential mismatch between the two sources.
+In addition to the points above, dataset 2 is a mixture of two different sources\footnote{See subsection \ref{subsec:dataset_2} for a detailed explanation.}, namely Movielens for the tags and IMDB for the movie plot summary. This may have had an additional effect on lowering the performance of the classifiers since there is a potential mismatch between the two sources.

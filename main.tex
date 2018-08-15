@@ -77,6 +77,15 @@
 
 \pgfplotsset{compat=1.12}
 
+\usepackage{listings}
+  \lstdefinestyle{tree}{
+    literate=
+    {├}{{\smash{\raisebox{-1ex}{\rule{1pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{1ex}{1pt}}}}1
+    {│}{{\smash{\raisebox{-1ex}{\rule{1pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{1ex}{0pt}}}}1
+    {─}{{\raisebox{0.5ex}{\rule{1.5ex}{1pt}}}}1 
+    {└}{{\smash{\raisebox{0.5ex}{\rule{1pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{1ex}{1pt}}}}1 
+  }
+
 \begin{document}
 	\title{Social Tag Prediction: Resource-centered Approaches for Broad Folksonomies}
 	\foreigntitle{Predição de Rótulos Sociais: Abordagens Baseadas em Recursos para Folksonomias Largas}
