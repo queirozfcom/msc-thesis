@@ -6,33 +6,59 @@ In this chapter we will introduce the subject matter of this dissertation, namel
 
 The motivation for this work is twofold. 
 
-Firstly, I myself take part in many online communities, including some where I need to organize resources in one way or another. I am frequently frustrated with the fact that many websites do not provide any organization capabilities other than placing things in \textit{categories} or \textit{folders}.
+Firstly, it is easy to see that naïve methods of organization may be hard to use in complex, real-world systems. Tags are one way to help users and administrators better organize and reason about concepts and/or resources in many such systems.
 
-I am witness to the fact that these methods don't scale at all for anything other than trivial examples \footnote{Say you need to place a scientific article called \textit{The History of Football in Europe} in a folder. Do you place it under "history", "sports" or under "Europe"?} and I believe tagging is a good way forward.\footnote{Note that similar classification schemes have already been in use for some time in places such as libraries. Some noteworthy examples include the Dewey Decimal System and the Library of Congress Classification methodologies, both in use for more than a century.}
+Take the following example: You organize scientific articles into folders and you have a new article called \textit{The History of Football in Europe}. Should you place it under \textit{"history"}, \textit{"sports"} or \textit{"Europe"}? Maybe place a copy under each folder? Create a new folder called \textit{"Europe\_Sports"} instead?\footnote{Note that similar classification schemes have already been in use for some time in places such as libraries. Some noteworthy examples include the Dewey Decimal System and the Library of Congress Classification methodologies, both in use for more than a century.} Clearly, assigning multiple labels or \textit{tags} to each resource is an elegant way of solving this problem.
 
 Secondly, it is well established that suggesting tags to users promotes faster convergence to a common vocabulary \citep{marlow_etal_2006,hassan_etal_2009, dattolo_etal_2010} and increases the likelihood that resources are tagged \citep{dattolo_etal_2010,floeck_etal_2010}. Additionally, it has been claimed that identifying good tags from a set of recommended tags is orders of magnitude less demanding than coming up with good tags without intervention \citep{marinho_etal_2012}.
 
-Since there are massive amounts of data available from Social Tagging Systems (STSs), it's natural to think of a data-driven, machine-learning based method to pursue that goal. We realized that predicting tags for resources in a social setting would not only be a worthy problem from a theoretical standpoint, but could also effectively help people in the real world navigate these online communities.
+Since there are massive amounts of data available from Social Tagging Systems (STSs), it's natural to think of a data-driven, machine-learning based method to pursue that goal. In addition to being a worthy research problem from a theoretical standpoint, good tag prediction techniques could also effectively help people in the real world navigate these online communities.
 
 \section{Problem scope}\label{section:intro_problem}
 
-When considering Social Tagging Systems, one can envision many different problems and areas where scientific knowledge and research could be put to use.
-
-We chose to address the problem of how to correctly predict which tags will be used to describe a given textual object in such a system. 
+When considering Social Tagging Systems, one can envision many different problems and areas where scientific knowledge and research could be put to use. For this reason, we chose to address the problem of how to correctly predict which tags will be used to describe a given textual object in such a system. 
 
 Since this problem touches upon many areas of scientific knowledge, such as machine learning, natural language processing (for textual resources), computer vision (similarly, for images and visual objects), recommender systems and so on, it is necessary to further limit our scope in a more precise manner.
 
-Firstly, one may create a distinction (according to commonly-cited sources such as \cite{wal_2005_broad_and_narrow}) between \textbf{broad} and \textbf{narrow folksonomies}. Broad folksonomies are those where not just a resource's owner but the whole community of users may assign tags to any one resource available on the system. Narrow folksonomies, on the other hand, only allow items to be tagged once, by the person who has first added that particular item to the system (i.e. that item's owner).
+Firstly, one may create a distinction between \textbf{broad and narrow folksonomies}.\footnote{Following commonly-cited sources such as \cite{wal_2005_broad_and_narrow}} \textbf{Broad folksonomies} are those where not just a resource's owner but the whole community of users may assign tags to any one resource available on the system. \textbf{Narrow folksonomies}, on the other hand, only allow items to be tagged once, by the person who has first added that particular item to the system (i.e. that item's owner). A summary can be seen on the following table:
 
-Broad folksonomies exhibit more diversity and richness of information, not to mention sheer scale, which makes them more amenable to analysis by data-driven methods, such as machine learning. More concretely, it has been suggested that a shared, global vocabulary of tags cannot be observed in narrow folksonomies \citep{schifanella_etal_2010}.
+\renewcommand{\arraystretch}{1.5}
 
-Secondly, many authors \citep{illig_etal_2011,song_etal_2011} have made a distinction between \textbf{resource-centered} and \textbf{user-centered approaches}. This refers to the fact that some approaches take user information into account when performing tag prediction (user-centered) while others take a global view, giving the same predictions for every user (resource-centered).\footnote{Other authors, e.g. \cite{zhang_etal_2014} and \cite{hu_etal_2010} refer to these two types as \textit{personalized} and \textit{collective} tag recommendation.}
+\begin{table}[!h]
+\centering
+\caption{Broad and narrow folksonomies}
+\begin{tabular}{|m{4cm}|m{8cm}|}
+\hline
+Broad folksonomies & Anyone can assign tags to any resource, and all tags are viewable by everyone using the system. \\
+\hline
+Narrow folksonomies & Only the owner of a given resource may assign tags to it. Other users can view them but cannot add their own.\\
+\hline
+\end{tabular}
+\label{tab:broad_vs_narrow}
+\end{table}
 
-We have therefore chosen to focus on \textbf{resource-centered approaches to predicting tags in broad folksonomies}. This is due to the previous reasons and to the fact \citep{song_etal_2011} that user-centered approaches do not perform so well vis-a-vis resource-centered methods; the distribution of users and tags in broad folksonomies follow a power law and reusability of tags by each individual user is low. 
+Broad folksonomies exhibit more diversity and richness of information, not to mention sheer scale, which makes them more amenable to analysis by data-driven methods, such as machine learning. More concretely, it has been suggested that a shared, global vocabulary of tags cannot be observed in narrow folksonomies \citep{schifanella_etal_2010}. 
 
-This makes resource-centered approaches more robust as we generally have much more information about resources than about users. This is particularly true with textual resources and broad folksonomies. Also, resource-centered methods have the added benefit of being able to work in the absence of user information, the so called \textit{cold start} problem.
+Secondly, many authors \citep{illig_etal_2011,song_etal_2011} have made a distinction between \textbf{resource-centered user-centered approaches}. This refers to the fact that some approaches take user information into account when performing tag prediction (user-centered) while others take a global view, giving the same predictions for every user (resource-centered). Note that other authors, (\textit{e.g.} \cite{zhang_etal_2014} and \cite{hu_etal_2010} refer to these two types as \textit{personalized} and \textit{collective} tag recommendation). The following table summarizes these differences:
 
-More specifically, with regards to resource-centered methods on broad folksonomies, we would like to inquire into the performance of different tag prediction techniques, as applied to different problem sets. We would like to be able able to answer questions such as:
+\begin{table}[!h]
+\centering
+\caption{Tag prediction approaches, classified according to the information they use}
+\begin{tabular}{|p{3.5cm}|p{10cm}|}
+\hline
+Resource-centered approaches & Only information regarding the resources themselves is used to build the tag prediction mechanism. For a given resource, the same predictions are displayed for every user. \\
+\hline
+User-centered approaches & In addition to information about the resources, user-specific data (\textit{e.g.} users' tagging history and profile) is leveraged for suggesting tags to be used at tag assignment time.\\
+\hline
+\end{tabular}
+\label{tab:resource_vs_user_centered}
+\end{table}
+
+In this work, have chosen to limit our scope to \textbf{resource-centered approaches to predicting tags in broad folksonomies}. This is due to the previous reasons and to the fact \citep{song_etal_2011} that user-centered approaches do not perform so well vis-a-vis resource-centered methods; the distribution of users and tags in broad folksonomies follow a power law and reusability of tags by each individual user is low. 
+
+Resource-centered approaches more robust as we generally have much more information about resources than about users. This is particularly true with textual resources and broad folksonomies. Also, resource-centered methods have the added benefit of being able to work in the absence of user information, the so called \textit{cold start} problem.
+
+More specifically, with regards to the chosen scope, we would like to inquire into the performance of different tag prediction techniques, as applied to different problem sets. We would like to be able able to answer questions such as:
 
 \begin{itemize}
     \item How do different methods of multi-label ranking perform when applied to the same data?
